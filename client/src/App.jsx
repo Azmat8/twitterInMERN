@@ -21,9 +21,7 @@ const App = () => {
   return (
 
     <Router>
-      <div className="flex justify-center gap-10">
-
-
+      <div >
         <Routes>
 
           <Route path="/" element={<Signup />} />
