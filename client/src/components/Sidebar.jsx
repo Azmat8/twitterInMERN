@@ -1,37 +1,45 @@
+import { Link } from "react-router-dom"
+
 const Sidebar = () => {
     return <div>
 
         <div className="px-4 py-2 w-[250px] ">
             <div className="py-2">
-                X
+                <Link to="/">X</Link>
             </div>
             <div className="py-2">
-                Home
+                <Link to="/home">Home</Link>
             </div>
             <div className="py-2">
-                Explore
+                <Link to="/explore">Explore</Link>
             </div>
             <div className="py-2">
-                Notification
+                <Link to="/notifications">Notifications</Link>
             </div>
             <div className="py-2">
-                Messages
+                <Link to="/messages">Messages</Link>
             </div>
             <div className="py-2">
-                Grok
+                <Link to="/grok">Grok</Link>
             </div>
             <div className="py-2">
-                List
+                <Link to="/lists">Lists</Link>
             </div>
             <div className="py-2">
-                Bookmarks
+                <Link to="/premium">Premium</Link>
             </div>
             <div className="py-2">
-                communities
+                <Link to="/profile">Profile</Link>
             </div>
-            <div className="py-2">Premium</div>
-            <div className="py-2">Profil</div>
-            <div className="py-2">More</div>
+            <div className="py-2">
+                <Link to="/bookmarks">Bookmarks</Link>
+            </div>
+            <div className="py-2">
+                <Link to="/communities">Communities</Link>
+            </div>
+            <div className="py-2">
+                <Link to="/more">More</Link>
+            </div>
             <div className="w-52">
                 <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full">
                     Post
