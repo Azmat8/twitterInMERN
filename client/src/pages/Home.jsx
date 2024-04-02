@@ -1,8 +1,14 @@
+import Sidebar from "../components/Sidebar";
 import Sidebar2 from "../components/Sidebar2";
 
 const Home = () => {
     return (
-        <div className="flex">
+        <div className="flex gap-2">
+            <div className="mr-10 ">
+
+
+                <Sidebar />
+            </div>
             <div className="w-[500px] border-r border-l">
                 <nav className="flex gap-4">
                     <div>For You</div>
@@ -55,9 +61,8 @@ const Home = () => {
                 </div>
 
             </div>
-
             <div className="ml-10">
-            <Sidebar2/>
+                <Sidebar2 />
             </div>
         </div>
     )

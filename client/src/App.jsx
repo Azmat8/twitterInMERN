@@ -13,16 +13,23 @@ import Profile from './pages/Profile';
 import Bookmarks from './pages/Bookmarks';
 import Communities from './pages/Communities';
 import More from './pages/More';
+import PageNotFound from './pages/PageNotFound';
+import Signup from './SignupLogInLogOut/Signup'
+import Login from './SignupLogInLogOut/Login'
 
 const App = () => {
   return (
-    
+
     <Router>
       <div className="flex justify-center gap-10">
-        <Sidebar/>
-       
+
+
         <Routes>
-          <Route path="/" element={<Home />} />
+
+          <Route path="/" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/home" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/notifications" element={<Notifications />} />
@@ -34,9 +41,11 @@ const App = () => {
           <Route path="/bookmarks" element={<Bookmarks />} />
           <Route path="/communities" element={<Communities />} />
           <Route path="/more" element={<More />} />
+          <Route path='*' element={<PageNotFound />} />
+
         </Routes>
       </div>
-    </Router>
+    </Router >
   );
 };
 
