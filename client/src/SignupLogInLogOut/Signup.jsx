@@ -58,7 +58,7 @@ const Signup = () => {
                             name="name"
                             placeholder="Enter name"
                             value={data.name}
-                            className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300  appearance-none dark:focus:border-blue-950 focus:outline-none focus:ring-0 focus:text-white  focus:border-gray-400 peer"
+                            className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300  appearance-none dark:focus:border-blue-950 focus:outline-none focus:ring-0 focus:text-white  focus:border-gray-400 peer: input-email"
                             onChange={handleChange}
                         />
                     </div>
@@ -69,7 +69,7 @@ const Signup = () => {
                             name="email"
                             placeholder="Enter email address"
                             value={data.email}
-                            className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300  appearance-none dark:focus:border-blue-950 focus:outline-none focus:ring-0 focus:text-white  focus:border-gray-400 peer"
+                            className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300  appearance-none dark:focus:border-blue-950 focus:outline-none focus:ring-0 focus:text-white  focus:border-gray-400 peer: input-email"
                             onChange={handleChange}
                         />
                     </div>
@@ -80,7 +80,7 @@ const Signup = () => {
                             name="password"
                             placeholder="Enter password"
                             value={data.password}
-                            className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300  appearance-none dark:focus:border-blue-950 focus:outline-none focus:ring-0 focus:text-white  focus:border-gray-400 peer"
+                            className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300  appearance-none dark:focus:border-blue-950 focus:outline-none focus:ring-0 focus:text-white  focus:border-gray-400 peer: input-email"
                             onChange={handleChange}
                         />
                     </div>
