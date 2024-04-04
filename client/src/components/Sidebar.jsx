@@ -1,7 +1,34 @@
-import { Link } from "react-router-dom"
-import { BellOutlined, BookOutlined, CheckSquareOutlined, EllipsisOutlined, HomeOutlined, MailOutlined, MessageOutlined, ProfileOutlined, SearchOutlined, UserOutlined, UsergroupAddOutlined, XOutlined } from '@ant-design/icons';
+
+import { Link, useNavigate } from "react-router-dom"
+import { BellOutlined, BookOutlined, CheckSquareOutlined, EllipsisOutlined, HomeOutlined, ImportOutlined, MailOutlined, MessageOutlined, ProfileOutlined, SearchOutlined, UserOutlined, UsergroupAddOutlined, XOutlined } from '@ant-design/icons';
+
+import { logoutUser } from "../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+
 
 const Sidebar = () => {
+    const user = useSelector((store) => store.user);
+
+    console.log(user)
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogoutUser = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.get("http://localhost:8080/logout");
+            dispatch(logoutUser());
+            localStorage.removeItem("token"); // Remove token from local storage
+            navigate("/login"); // Redirect to login page
+            alert("Logout successful.");
+        } catch (error) {
+            console.error('Logout failed', error);
+            alert("Logout failed. Please try again.");
+        }
+    };
+
     return <div>
 
         <div className="pl-4 pr-6 py-2 w-[250px] text-lg">
@@ -53,10 +80,10 @@ const Sidebar = () => {
                     className="h-10 w-10 rounded-full mr-3"
                 />
                 <div>
-                    <div className="text-sm font-semibold">Azmat Shaikh</div>
-                    <div className="text-sm text-gray-600">@AzmatShaikh555</div>
+                    <div className="text-sm font-semibold">{user?.name}</div>
+                    <div className="text-sm text-gray-600">@{user?.name}</div>
                 </div>
-                <button className="ml-auto">
+                <button className="ml-auto" onClick={handleLogoutUser}>
                     <span className="text-xl font-bold ml-6"><EllipsisOutlined /></span>
                 </button>
             </div>

@@ -1,6 +1,4 @@
 
-
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -23,31 +21,6 @@ const Signup = () => {
     const navigate = useNavigate();
 
 
-    // const signupUser = async (e) => {
-    //     e.preventDefault();
-
-    //     const { name, email, password } = data;
-    //     try {
-    //         await axios.post("http://localhost:8080/signup", {
-    //             name,
-    //             email,
-    //             password,
-    //         });
-
-
-    //         setData({
-    //             name: "",
-    //             email: "",
-    //             password: "",
-    //         });
-    //         alert("Sign up successful. Please log in.");
-    //         navigate("/login");
-    //     } catch (error) {
-    //         console.log(error);
-    //         alert("Sign up failed. Please try again.");
-    //     }
-    // };
-    // Part of Signup.jsx
 
     const signupUser = async (e) => {
         e.preventDefault();
