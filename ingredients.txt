@@ -1,3 +1,5 @@
-viteApp      ===    npm create vite@latest .
-tailwind css ===    npm install -D tailwindcss postcss autoprefixer
-react-router ===    npm i react-router-dom
+viteApp            ===    npm create vite@latest .
+tailwind css       ===    npm install -D tailwindcss postcss autoprefixer
+react-router       ===    npm i react-router-dom
+redux              ===    npm i redux react-redux
+reduxjs/toolkit    ===    npm i @reduxjs/toolkit

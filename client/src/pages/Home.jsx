@@ -1,7 +1,10 @@
 import Sidebar from "../components/Sidebar";
 import Sidebar2 from "../components/Sidebar2";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+    const user = useSelector((store) => store.user.name);
+    console.log(user)
     return (
         <div className="flex justify-center gap-10">
             <div className="flex gap-2">

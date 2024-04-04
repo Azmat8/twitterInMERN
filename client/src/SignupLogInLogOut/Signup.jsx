@@ -1,11 +1,16 @@
 
 
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
+
+import { createUser } from "../features/user/userSlice";
+
 
 const Signup = () => {
     const [data, setData] = useState({
@@ -14,18 +19,45 @@ const Signup = () => {
         password: "",
     });
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+
+
+    // const signupUser = async (e) => {
+    //     e.preventDefault();
+
+    //     const { name, email, password } = data;
+    //     try {
+    //         await axios.post("http://localhost:8080/signup", {
+    //             name,
+    //             email,
+    //             password,
+    //         });
+
+
+    //         setData({
+    //             name: "",
+    //             email: "",
+    //             password: "",
+    //         });
+    //         alert("Sign up successful. Please log in.");
+    //         navigate("/login");
+    //     } catch (error) {
+    //         console.log(error);
+    //         alert("Sign up failed. Please try again.");
+    //     }
+    // };
+    // Part of Signup.jsx
 
     const signupUser = async (e) => {
         e.preventDefault();
 
         const { name, email, password } = data;
         try {
-            await axios.post("http://localhost:8080/signup", {
-                name,
-                email,
-                password,
-            });
+            const response = await axios.post("http://localhost:8080/signup", { name, email, password });
+            console.log(response, "response")
+
+            dispatch(createUser(response.data.data)); // Dispatch action correctly
             setData({
                 name: "",
                 email: "",
@@ -38,6 +70,7 @@ const Signup = () => {
             alert("Sign up failed. Please try again.");
         }
     };
+
 
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
@@ -87,6 +120,7 @@ const Signup = () => {
                     <button
                         type="submit"
                         className="w-full mb-4 text-[18px] mt-6 rounded-full  bg-zinc-700 text-white font-bold py-2 hover:bg-black hover:text-gray-300 transition-colors duration-500 transitio "
+
                     >
                         Signup
                     </button>

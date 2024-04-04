@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+
+import { createUser } from "../features/user/userSlice";
 
 const Login = () => {
     const [data, setData] = useState({
@@ -11,6 +14,7 @@ const Login = () => {
     });
 
     const history = useNavigate();
+    const dispatch = useDispatch();
 
     const loginUser = async (e) => {
         e.preventDefault();
@@ -20,7 +24,9 @@ const Login = () => {
                 email,
                 password,
             });
+            console.log(response, ":sdfsdfsdfdsffsdfsddsfdfdsfsdssssssssssssssssss");
             localStorage.setItem("token", response.data.token);
+            dispatch(createUser(response.data.data))
             setData({
                 email: "",
                 password: "",

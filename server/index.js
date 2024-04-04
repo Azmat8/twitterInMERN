@@ -57,7 +57,7 @@ app.post('/signup', async (req, res) => {
         const newUser = new User({ name, email, password: hashedPassword });
         await newUser.save();
 
-        res.status(201).json({ message: 'User created successfully' });
+        res.status(201).json({ data: newUser, message: 'User created successfully' });
     } catch (error) {
         console.error('Signup error:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -84,7 +84,7 @@ app.post('/login', async (req, res) => {
         // Generate JWT token
         const token = jwt.sign({ userId: user._id }, 'secret_key', { expiresIn: '9h' });
 
-        res.json({ token });
+        res.json({ data: user, token });
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({ error: 'Internal server error' });
