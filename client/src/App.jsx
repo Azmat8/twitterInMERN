@@ -14,8 +14,8 @@ import Bookmarks from './pages/Bookmarks';
 import Communities from './pages/Communities';
 import More from './pages/More';
 import PageNotFound from './pages/PageNotFound';
-import Signup from './SignupLogInLogOut/Signup'
-import Login from './SignupLogInLogOut/Login'
+import Signup from './auth/Signup'
+import Login from './auth/Login'
 
 const App = () => {
   return (
