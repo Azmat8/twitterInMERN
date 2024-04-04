@@ -36,8 +36,14 @@ const Signup = () => {
                 email: "",
                 password: "",
             });
-            alert("Sign up successful. Please log in.");
-            navigate("/login");
+            navigate("/askBirtdate");
+            // navigate("/chooseUsername");
+            // navigate("/chooseLanguages");
+            // navigate("/chooseTopics");
+            // navigate("/chooseSubtopics");
+            // navigate("/followPeople");
+            // alert("Sign up successful. Please log in.");
+            // navigate("/login");
         } catch (error) {
             console.log(error);
             alert("Sign up failed. Please try again.");

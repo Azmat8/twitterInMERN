@@ -16,6 +16,12 @@ import More from './pages/More';
 import PageNotFound from './pages/PageNotFound';
 import Signup from './auth/Signup'
 import Login from './auth/Login'
+import AskBirthdate from './components/modals/AskBirthdate';
+import ChooseUsername from './components/modals/ChooseUsername';
+import ChooseLanguages from './components/modals/ChooseLanguages';
+import ChooseTopics from './components/modals/ChooseTopics';
+import ChooseSubtopics from './components/modals/ChooseSubtopics';
+import FollowPeople from './components/modals/FollowPeople';
 
 const App = () => {
   return (
@@ -26,6 +32,13 @@ const App = () => {
 
           <Route path="/" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/askBirtdate" element={<AskBirthdate />} />
+          <Route path="/chooseUsername" element={<ChooseUsername />} />
+          <Route path="/chooseLanguages" element={<ChooseLanguages />} />
+          <Route path="/chooseTopics" element={<ChooseTopics />} />
+          <Route path="/chooseSubtopics" element={<ChooseSubtopics />} />
+          <Route path="/followPeople" element={<FollowPeople />} />
+
 
           <Route path="/home" element={<Home />} />
           <Route path="/home" element={<Home />} />
