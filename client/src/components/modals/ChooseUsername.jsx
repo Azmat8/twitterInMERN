@@ -15,13 +15,13 @@ const ChooseUsername = () => {
                     <div className='text-sm py-2 text-gray-500 font-semibold'>
                         Your @username is unique. You can always change it later.
                     </div>
-                    <div className='text-gray-500 p-2 my-7 border border-gray-300 rounded'>
+                    <div className='text-gray-500 p-2 my-7 border-2 rounded'>
                         <div className='text-[0.8rem]'>Username</div>
                         <div className='flex justify-between'>
                             <input
                                 type="text"
                                 placeholder='@ username'
-                                className='outline-none'
+                                className='outline-none w-full'
                             />
                             <div className='text-green-500 pr-1'><CheckCircleFilled /></div>
                         </div>

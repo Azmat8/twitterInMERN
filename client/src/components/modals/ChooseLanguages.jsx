@@ -3,8 +3,8 @@ import React from 'react'
 
 const ChooseLanguages = () => {
   return (
-    <div className='flex justify-center bg-gray-300 h-[100vh]'>
-      <div className='flex flex-col  w-[550px] my-10 bg-white rounded-[1rem]'>
+    <div className='flex justify-center bg-gray-300'>
+      <div className='flex flex-col  w-[500px] my-10 bg-white rounded-[1rem] pb-4'>
         <div className='text-[26px] py-2 flex justify-center '>
           <XOutlined />
         </div>
@@ -15,7 +15,7 @@ const ChooseLanguages = () => {
           <div className='text-sm py-2 text-gray-500 font-semibold'>
             You'll be able to see posts, people and trends in any languages you choose.
           </div>
-          <div className='overflow-auto h-72 mt-2 pr-4'>
+          <div className='overflow-auto h-64 mt-2 pr-4'>
             <div className='flex justify-between border-b border-gray-100 py-2'>
               <span className='text-sm text-gray-500 font-medium'>Bangla - বাংলা</span>
               <input type="checkbox" className='text-lg' />
@@ -72,7 +72,7 @@ const ChooseLanguages = () => {
           <div className='text-blue-400 text-sm font-medium text-center mt-4'>
             Show more
           </div>
-          <div className='rounded-full p-2 text-center bg-black'>
+          <div className='rounded-full mt-14 p-2 text-center bg-black'>
             <button className='text-sm font-bold text-white'>Next</button>
           </div>
         </div>
