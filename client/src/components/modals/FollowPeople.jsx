@@ -60,7 +60,7 @@ const WhoToFollowCard = () => {
       handle: 'AMAZINGNATURE',
       avatar: 'https://pbs.twimg.com/profile_images/1675131429003427841/dahpFfla_400x400.jpg',
       isverified: (
-        <span className="text-blue-500"><CheckCircleOutlined /></span>
+        <span className="text-blue-500"><CheckCircleFilled /></span>
       )
     },
     {

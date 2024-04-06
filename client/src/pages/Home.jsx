@@ -2,7 +2,7 @@ import Sidebar from "../components/Sidebar";
 import Sidebar2 from "../components/Sidebar2";
 import { useSelector } from "react-redux";
 import posts from "../posts.json";
-import { BarChartOutlined, BookOutlined, CameraOutlined, CheckCircleOutlined, EllipsisOutlined, EnvironmentOutlined, FileImageOutlined, GifOutlined, HeartOutlined, RetweetOutlined, SettingOutlined, SmileOutlined, UploadOutlined, WechatWorkOutlined } from '@ant-design/icons'
+import { BarChartOutlined, BookOutlined, CameraOutlined, CheckCircleFilled, EllipsisOutlined, EnvironmentOutlined, FileImageOutlined, GifOutlined, HeartOutlined, RetweetOutlined, SettingOutlined, SmileOutlined, UploadOutlined, WechatWorkOutlined } from '@ant-design/icons'
 import moment from "moment";
 const Home = () => {
 
@@ -89,11 +89,11 @@ const TweetCard = ({ post }) => {
     return media.map((item, index) => {
       switch (item.type) {
         case 'photo':
-          return <img key={index} className="rounded-2xl mt-2 w-[80%]" src={item.media_url_https} alt="" />;
+          return <img key={index} className="rounded-2xl mt-2 w-[98%]" src={item.media_url_https} alt="" />;
         case 'video':
           return (
             <div key={index} className="w-[30rem]  mt-2">
-              <video controls autoPlay loop  className='w-full h-auto rounded-lg'>
+              <video controls autoPlay loop  className='w-full h-auto rounded-2xl'>
                 <source src={item.media_url_https} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
@@ -106,16 +106,16 @@ const TweetCard = ({ post }) => {
   };
 
   return (
-    <div className="border-b hover:bg-gray-50 transition-all cursor-pointer">
+    <div className="border-b hover:bg-gray-100 transition-all cursor-pointer">
       <div className="flex p-3 mr-2">
-        <div className="w-14">
-          <img className="rounded-full" src={user.profile_image_url_https} alt={user.name} />
+        <div className="w-20">
+          <img className="rounded-full" width={45} src={user.profile_image_url_https} alt={user.name} />
         </div>
         <div className="ml-2">
           <div className="flex justify-between">
             <div className="flex gap-2 items-center">
               <span className="font-semibold">{user.name}</span>
-              <span className="text-blue-500"><CheckCircleOutlined /></span>
+              <span className="text-blue-500"><CheckCircleFilled /></span>
               <span className="text-gray-500 text-sm">@{user.screen_name}</span>
               <span className="text-gray-500 text-sm">&middot;</span>
               <span className="text-gray-500 text-sm">{formattedDate}</span>

@@ -19,7 +19,7 @@
       ],
       "media": [
         {
-          "media_url_https": "https://pbs.twimg.com/media/GKX1gToaAAAOo7u?format=jpg&name=large",
+          "media_url_https": "https://pbs.twimg.com/media/GKavtuLXYAA1oIC?format=jpg&name=900x900",
           "type": "photo"
         }
       ]
@@ -33,7 +33,7 @@
       "id": "1000000000000000002",
       "name": "Tech Guru",
       "screen_name": "tech_guru",
-      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1700051019525488640/VRqy0bTE_400x400.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1107936345769607169/sJKWJd7g_400x400.png"
     },
     "entities": {
       "hashtags": [
@@ -46,8 +46,8 @@
       ],
       "media": [
         {
-          "media_url_https": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-          "type": "video"
+          "media_url_https": "https://pbs.twimg.com/media/GKck3pmWQAAs6dX?format=jpg&name=900x900",
+          "type": "photo"
         }
       ]
     },
@@ -60,7 +60,7 @@
       "id": "1000000000000000003",
       "name": "StartUp Whiz",
       "screen_name": "startupwhiz",
-      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1700051019525488640/VRqy0bTE_400x400.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/806124338428538880/WUIWN-qP_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -70,36 +70,15 @@
         {
           "text": "StartUp"
         }
-      ]
-    },
-    "created_at": "Wed Oct 10 21:45:00 +0000 2024"
-  },
-  {
-    "id": "1210000000000000004",
-    "text": "Nothing like a fresh cup of coffee to start the day. #CoffeeLover #MorningRitual",
-    "user": {
-      "id": "1000000000000000004",
-      "name": "Coffee Connoisseur",
-      "screen_name": "coffeeaficionado",
-      "profile_image_url_https": "https://example.com/profile4.jpg"
-    },
-    "entities": {
-      "hashtags": [
-        {
-          "text": "CoffeeLover"
-        },
-        {
-          "text": "MorningRitual"
-        }
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/coffee_cup.jpg",
+          "media_url_https": "https://pbs.twimg.com/card_img/1776218607753580545/LP1rWCBw?format=jpg&name=900x900",
           "type": "photo"
         }
       ]
     },
-    "created_at": "Thu Oct 11 05:30:00 +0000 2024"
+    "created_at": "Wed Oct 10 21:45:00 +0000 2024"
   },
   {
     "id": "1210000000000000005",
@@ -108,7 +87,7 @@
       "id": "1000000000000000005",
       "name": "Trail Explorer",
       "screen_name": "trailblazer",
-      "profile_image_url_https": "https://example.com/profile5.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1771512681670860800/Gj65NqlE_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -121,12 +100,39 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/hidden_trails.jpg",
-          "type": "photo"
+          "media_url_https": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+          "type": "video"
         }
       ]
     },
     "created_at": "Thu Oct 11 08:20:00 +0000 2024"
+  },
+  {
+    "id": "1210000000000000004",
+    "text": "Nothing like a fresh cup of coffee to start the day. #CoffeeLover #MorningRitual",
+    "user": {
+      "id": "1000000000000000004",
+      "name": "Coffee Connoisseur",
+      "screen_name": "coffeeaficionado",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1771512681670860800/Gj65NqlE_400x400.jpg"
+    },
+    "entities": {
+      "hashtags": [
+        {
+          "text": "CoffeeLover"
+        },
+        {
+          "text": "MorningRitual"
+        }
+      ],
+      "media": [
+        {
+          "media_url_https": "https://pbs.twimg.com/media/GJmJ48bXMAAFoPR?format=jpg&name=900x900",
+          "type": "photo"
+        }
+      ]
+    },
+    "created_at": "Thu Oct 11 05:30:00 +0000 2024"
   },
   {
     "id": "1210000000000000006",
@@ -135,7 +141,7 @@
       "id": "1000000000000000006",
       "name": "Eco Warrior",
       "screen_name": "eco_warrior",
-      "profile_image_url_https": "https://example.com/profile6.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1646852396705009665/RglPFCxF_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -144,6 +150,12 @@
         },
         {
           "text": "Podcast"
+        }
+      ],
+      "media": [
+        {
+          "media_url_https": "https://pbs.twimg.com/media/Fz8Q6z2aMAEIod_?format=jpg&name=900x900",
+          "type": "photo"
         }
       ]
     },
@@ -156,7 +168,7 @@
       "id": "1000000000000000007",
       "name": "Art Enthusiast",
       "screen_name": "art_lover",
-      "profile_image_url_https": "https://example.com/profile7.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1515393379546193922/QWbMlw6W_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -169,12 +181,39 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/gallery_art.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/Fj93IV3VsAAozgZ?format=jpg&name=900x900",
           "type": "photo"
         }
       ]
     },
     "created_at": "Thu Oct 11 11:00:00 +0000 2024"
+  },
+  {
+    "id": "1210000000000000012",
+    "text": "This week's book club pick has me on the edge of my seat! Can't wait to discuss. #BookClub #Thriller",
+    "user": {
+      "id": "1000000000000000012",
+      "name": "Bookworm Betty",
+      "screen_name": "booklover",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/854393681335525378/NqBqeyFG_400x400.jpg"
+    },
+    "entities": {
+      "hashtags": [
+        {
+          "text": "BookClub"
+        },
+        {
+          "text": "Thriller"
+        }
+      ],
+      "media": [
+        {
+          "media_url_https": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+          "type": "video"
+        }
+      ]
+    },
+    "created_at": "Thu Oct 11 19:30:00 +0000 2024"
   },
   {
     "id": "1210000000000000008",
@@ -183,7 +222,7 @@
       "id": "1000000000000000008",
       "name": "Yogi Master",
       "screen_name": "yoga_mastery",
-      "profile_image_url_https": "https://example.com/profile8.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1619756444001107970/h4r3bLqU_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -196,7 +235,7 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/yoga_pose.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/GKb_MJ6WsAAVmBq?format=jpg&name=medium",
           "type": "photo"
         }
       ]
@@ -210,7 +249,7 @@
       "id": "1000000000000000009",
       "name": "Green Thumb",
       "screen_name": "balconygardener",
-      "profile_image_url_https": "https://example.com/profile9.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/926137420072017920/GZ4wsdDc_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -223,7 +262,7 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/balcony_garden.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/DDhg7D8XgAEdkoi?format=jpg&name=small",
           "type": "photo"
         }
       ]
@@ -237,7 +276,7 @@
       "id": "1000000000000000010",
       "name": "Cuisine Explorer",
       "screen_name": "foodie_adventure",
-      "profile_image_url_https": "https://example.com/profile10.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1555317678402707456/SS0brojo_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -250,7 +289,7 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/local_cuisine.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/EQhq9ILWkAIiu2p?format=jpg&name=900x900",
           "type": "photo"
         }
       ]
@@ -264,7 +303,7 @@
       "id": "1000000000000000011",
       "name": "Sky Gazer",
       "screen_name": "stargazer",
-      "profile_image_url_https": "https://example.com/profile11.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1747556121382928384/CXn3rKo3_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -277,34 +316,14 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/milky_way.jpg",
+          "media_url_https": "https://pbs.twimg.com/card_img/1776166632169074689/wuxuj2EE?format=jpg&name=900x900",
           "type": "photo"
         }
       ]
     },
     "created_at": "Thu Oct 11 18:00:00 +0000 2024"
   },
-  {
-    "id": "1210000000000000012",
-    "text": "This week's book club pick has me on the edge of my seat! Can't wait to discuss. #BookClub #Thriller",
-    "user": {
-      "id": "1000000000000000012",
-      "name": "Bookworm Betty",
-      "screen_name": "booklover",
-      "profile_image_url_https": "https://example.com/profile12.jpg"
-    },
-    "entities": {
-      "hashtags": [
-        {
-          "text": "BookClub"
-        },
-        {
-          "text": "Thriller"
-        }
-      ]
-    },
-    "created_at": "Thu Oct 11 19:30:00 +0000 2024"
-  },
+ 
   {
     "id": "1210000000000000013",
     "text": "Dive into the heart of the jungle with our latest documentary. #Adventure #Wildlife",
@@ -312,7 +331,7 @@
       "id": "1000000000000000013",
       "name": "Adventure Films",
       "screen_name": "adventure_doc",
-      "profile_image_url_https": "https://example.com/profile13.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1580648703496519680/yvEM-DjC_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -325,7 +344,7 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/jungle_doc.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/GKRns34WsAAqjO9?format=jpg&name=large",
           "type": "photo"
         }
       ]
@@ -339,7 +358,7 @@
       "id": "1000000000000000014",
       "name": "Chef Julian",
       "screen_name": "culinarymaster",
-      "profile_image_url_https": "https://example.com/profile14.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1453047344144941056/jjevZQ0Z_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -352,7 +371,7 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/french_cooking.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/GJsCfDbbwAA4pij?format=jpg&name=medium",
           "type": "photo"
         }
       ]
@@ -366,7 +385,7 @@
       "id": "1000000000000000015",
       "name": "Eco Fashionista",
       "screen_name": "ecochic",
-      "profile_image_url_https": "https://example.com/profile15.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/966638077480497152/0qb68IHr_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -379,7 +398,7 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/eco_fashion.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/DXR8-zEW4AALSI5?format=jpg&name=900x900",
           "type": "photo"
         }
       ]
@@ -391,9 +410,9 @@
     "text": "Running my first marathon this weekend! Wish me luck! #Marathon #Running",
     "user": {
       "id": "1000000000000000016",
-      "name": "Marathon Mike",
+      "name": "Mike Rahlmann",
       "screen_name": "runmike_run",
-      "profile_image_url_https": "https://example.com/profile16.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1080655480207405057/sgZEhpMz_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -402,6 +421,12 @@
         },
         {
           "text": "Running"
+        }
+      ],
+      "media": [
+        {
+          "media_url_https": "https://pbs.twimg.com/media/GKZwGCXXoAAQLES?format=jpg&name=large",
+          "type": "photo"
         }
       ]
     },
@@ -414,7 +439,7 @@
       "id": "1000000000000000017",
       "name": "Artsy Anna",
       "screen_name": "anna_artsy",
-      "profile_image_url_https": "https://example.com/profile17.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/572775880222765056/LRQh11e3_400x400.jpeg"
     },
     "entities": {
       "hashtags": [
@@ -427,7 +452,7 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/mural_art.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/GKHKP6lWIAEJaxh?format=jpg&name=900x900",
           "type": "photo"
         }
       ]
@@ -441,7 +466,7 @@
       "id": "1000000000000000018",
       "name": "Gadget Gary",
       "screen_name": "gadgetgary",
-      "profile_image_url_https": "https://example.com/profile18.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1476531787044036611/LnlwQvNj_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -454,8 +479,8 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/tech_unboxing.mp4",
-          "type": "video"
+          "media_url_https": "https://pbs.twimg.com/media/F5wiQCLXkAAPItm?format=jpg&name=large",
+          "type": "photo"
         }
       ]
     },
@@ -468,7 +493,7 @@
       "id": "1000000000000000019",
       "name": "Innovator Irene",
       "screen_name": "innovate_irene",
-      "profile_image_url_https": "https://example.com/profile19.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1708018742976761856/cluYvjnO_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -477,6 +502,12 @@
         },
         {
           "text": "Innovation"
+        }
+      ],
+      "media": [
+        {
+          "media_url_https": "https://pbs.twimg.com/media/GJ68EIzXoAA8BeU?format=jpg&name=900x900",
+          "type": "photo"
         }
       ]
     },
@@ -489,7 +520,7 @@
       "id": "1000000000000000020",
       "name": "Sandy Toes",
       "screen_name": "beachlover",
-      "profile_image_url_https": "https://example.com/profile20.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1773829612511924224/Bbpv438B_400x400.jpg"
     },
     "entities": {
       "hashtags": [
@@ -502,7 +533,7 @@
       ],
       "media": [
         {
-          "media_url_https": "https://example.com/media/beach_day.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/GFPb386WAAA80VC?format=jpg&name=900x900",
           "type": "photo"
         }
       ]
