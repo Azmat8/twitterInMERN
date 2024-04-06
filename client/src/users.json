@@ -1,0 +1,935 @@
+[
+  {
+    "user": {
+      "name": "Zara Khan",
+      "email": "zarakhan@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForZara",
+      "birthdate": "1998-07-12",
+      "username": "zarak",
+      "selectedLanguages": [
+        "English",
+        "Urdu - اُردُو"
+      ],
+      "userIntrest": [
+        "Fashion",
+        "Travel",
+        "Tech Gadgets"
+      ],
+      "userInterests": [
+        {
+          "Fashion": [
+            "Latest Trends",
+            "Designer Wear"
+          ]
+        },
+        {
+          "Travel": [
+            "Adventure Travel",
+            "Beach Destinations"
+          ]
+        },
+        {
+          "Technology": [
+            "Smartphones",
+            "Wearables",
+            "Home Automation"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Rahul Mehra",
+      "email": "rahulmehra@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForRahul",
+      "birthdate": "1996-04-22",
+      "username": "rahulm",
+      "selectedLanguages": [
+        "English",
+        "Hindi - हिन्दी"
+      ],
+      "userIntrest": [
+        "Cricket",
+        "Startups",
+        "Blockchain"
+      ],
+      "userInterests": [
+        {
+          "Sports": [
+            "Cricket",
+            "Badminton"
+          ]
+        },
+        {
+          "Business": [
+            "Startups",
+            "Entrepreneurship"
+          ]
+        },
+        {
+          "Technology": [
+            "Blockchain",
+            "Cryptocurrency"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Emily Watson",
+      "email": "emilywatson@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForEmily",
+      "birthdate": "1997-11-30",
+      "username": "emilyw",
+      "selectedLanguages": [
+        "English",
+        "French - français"
+      ],
+      "userIntrest": [
+        "Photography",
+        "Yoga",
+        "Vegan Cooking"
+      ],
+      "userInterests": [
+        {
+          "Hobbies": [
+            "Photography",
+            "Travel Photography"
+          ]
+        },
+        {
+          "Health & Wellness": [
+            "Yoga",
+            "Meditation"
+          ]
+        },
+        {
+          "Food": [
+            "Vegan Cooking",
+            "Healthy Eating"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Mike Johnson",
+      "email": "mikejohnson@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForMike",
+      "birthdate": "1988-01-16",
+      "username": "mikej",
+      "selectedLanguages": [
+        "English",
+        "Spanish - Español"
+      ],
+      "userIntrest": [
+        "Gaming",
+        "Sci-Fi Movies",
+        "Coding"
+      ],
+      "userInterests": [
+        {
+          "Entertainment": [
+            "Sci-Fi Movies",
+            "Fantasy Series"
+          ]
+        },
+        {
+          "Games": [
+            "PC Games",
+            "Console Games"
+          ]
+        },
+        {
+          "Information Technology": [
+            "Web Development",
+            "App Development"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Lara Gibson",
+      "email": "laragibson@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForLara",
+      "birthdate": "1994-05-19",
+      "username": "larag",
+      "selectedLanguages": [
+        "English",
+        "German - Deutsch"
+      ],
+      "userIntrest": [
+        "Rock Climbing",
+        "Indie Music",
+        "Sustainable Living"
+      ],
+      "userInterests": [
+        {
+          "Outdoor Activities": [
+            "Rock Climbing",
+            "Hiking"
+          ]
+        },
+        {
+          "Music": [
+            "Indie Bands",
+            "Live Concerts"
+          ]
+        },
+        {
+          "Lifestyle": [
+            "Sustainable Living",
+            "Minimalism"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Sophia Turner",
+      "email": "sophiaturner@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForSophia",
+      "birthdate": "1995-02-14",
+      "username": "sophia_t",
+      "selectedLanguages": [
+        "English",
+        "Italian - Italiano"
+      ],
+      "userIntrest": [
+        "Modern Art",
+        "European Travel",
+        "Wine Tasting"
+      ],
+      "userInterests": [
+        {
+          "Art & Design": [
+            "Modern Art",
+            "Abstract Art"
+          ]
+        },
+        {
+          "Travel": [
+            "European Destinations",
+            "Cultural Experiences"
+          ]
+        },
+        {
+          "Food & Drink": [
+            "Wine Tasting",
+            "Gourmet Cooking"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Lucas Martinez",
+      "email": "lucasmartinez@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForLucas",
+      "birthdate": "1990-07-22",
+      "username": "luke_mart",
+      "selectedLanguages": [
+        "English",
+        "Spanish - Español"
+      ],
+      "userIntrest": [
+        "Fitness",
+        "Nutrition",
+        "Mindfulness"
+      ],
+      "userInterests": [
+        {
+          "Health & Fitness": [
+            "Gym Workouts",
+            "Running"
+          ]
+        },
+        {
+          "Wellness": [
+            "Nutrition",
+            "Mindfulness Meditation"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Amelia Zheng",
+      "email": "ameliazheng@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForAmelia",
+      "birthdate": "1992-11-05",
+      "username": "ameliaz",
+      "selectedLanguages": [
+        "English",
+        "Chinese - 中文"
+      ],
+      "userIntrest": [
+        "Tech Startups",
+        "Blockchain",
+        "Travel"
+      ],
+      "userInterests": [
+        {
+          "Technology": [
+            "Tech Startups",
+            "Blockchain Technology"
+          ]
+        },
+        {
+          "Travel": [
+            "Adventure Travel",
+            "Cultural Travel"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Ethan Brown",
+      "email": "ethanbrown@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForEthan",
+      "birthdate": "1985-09-15",
+      "username": "ethanb",
+      "selectedLanguages": [
+        "English",
+        "French - Français"
+      ],
+      "userIntrest": [
+        "Cycling",
+        "Environmental Activism",
+        "Photography"
+      ],
+      "userInterests": [
+        {
+          "Outdoor Activities": [
+            "Cycling",
+            "Mountain Biking"
+          ]
+        },
+        {
+          "Activism": [
+            "Environmental Activism",
+            "Sustainable Living"
+          ]
+        },
+        {
+          "Hobbies": [
+            "Photography",
+            "Nature Photography"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Isabella Johnson",
+      "email": "isabellajohnson@example.com",
+      "password": "$2b$10$SomeHashedPasswordHereForIsabella",
+      "birthdate": "1988-12-30",
+      "username": "isabella_j",
+      "selectedLanguages": [
+        "English",
+        "German - Deutsch"
+      ],
+      "userIntrest": [
+        "Reading",
+        "Classical Music",
+        "Theater"
+      ],
+      "userInterests": [
+        {
+          "Culture": [
+            "Literature",
+            "Classical Music"
+          ]
+        },
+        {
+          "Performing Arts": [
+            "Theater",
+            "Opera"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Daniel Kim",
+      "email": "danielkim@example.com",
+      "password": "$2b$10$SomeUniqueHashHereForDaniel",
+      "birthdate": "1993-03-18",
+      "username": "danielk",
+      "selectedLanguages": [
+        "English",
+        "Korean - 한국어"
+      ],
+      "userIntrest": [
+        "Digital Art",
+        "Virtual Reality",
+        "Gaming"
+      ],
+      "userInterests": [
+        {
+          "Art & Design": [
+            "Digital Art",
+            "3D Modeling"
+          ]
+        },
+        {
+          "Technology": [
+            "Virtual Reality",
+            "Augmented Reality"
+          ]
+        },
+        {
+          "Gaming": [
+            "PC Games",
+            "VR Games"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Olivia Smith",
+      "email": "oliviasmith@example.com",
+      "password": "$2b$10$SomeUniqueHashHereForOlivia",
+      "birthdate": "1996-08-24",
+      "username": "olivia_s",
+      "selectedLanguages": [
+        "English",
+        "Spanish - Español"
+      ],
+      "userIntrest": [
+        "Sustainable Fashion",
+        "Travel Blogging",
+        "Photography"
+      ],
+      "userInterests": [
+        {
+          "Fashion": [
+            "Sustainable Fashion",
+            "Ethical Brands"
+          ]
+        },
+        {
+          "Travel": [
+            "Solo Travel",
+            "Cultural Exploration"
+          ]
+        },
+        {
+          "Photography": [
+            "Travel Photography",
+            "Portrait Photography"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Noah Lee",
+      "email": "noahlee@example.com",
+      "password": "$2b$10$SomeUniqueHashHereForNoah",
+      "birthdate": "1989-11-30",
+      "username": "noahl",
+      "selectedLanguages": [
+        "English",
+        "Mandarin - 普通话"
+      ],
+      "userIntrest": [
+        "Martial Arts",
+        "Tea Culture",
+        "Calligraphy"
+      ],
+      "userInterests": [
+        {
+          "Sports": [
+            "Martial Arts",
+            "Tai Chi"
+          ]
+        },
+        {
+          "Culture": [
+            "Tea Culture",
+            "Chinese Tea Ceremony"
+          ]
+        },
+        {
+          "Arts": [
+            "Calligraphy",
+            "Traditional Arts"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Emma Gonzalez",
+      "email": "emmagonzalez@example.com",
+      "password": "$2b$10$SomeUniqueHashHereForEmma",
+      "birthdate": "1997-05-14",
+      "username": "emma_g",
+      "selectedLanguages": [
+        "English",
+        "Portuguese - Português"
+      ],
+      "userIntrest": [
+        "Yoga",
+        "Veganism",
+        "Eco-Travel"
+      ],
+      "userInterests": [
+        {
+          "Wellness": [
+            "Yoga",
+            "Meditation"
+          ]
+        },
+        {
+          "Lifestyle": [
+            "Veganism",
+            "Plant-Based Diets"
+          ]
+        },
+        {
+          "Travel": [
+            "Eco-Travel",
+            "Sustainable Tourism"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Alexander Petrov",
+      "email": "alexanderpetrov@example.com",
+      "password": "$2b$10$SomeUniqueHashHereForAlexander",
+      "birthdate": "1990-02-09",
+      "username": "alex_p",
+      "selectedLanguages": [
+        "English",
+        "Russian - Русский"
+      ],
+      "userIntrest": [
+        "Classical Music",
+        "Chess",
+        "History"
+      ],
+      "userInterests": [
+        {
+          "Music": [
+            "Classical Music",
+            "Opera"
+          ]
+        },
+        {
+          "Games": [
+            "Chess",
+            "Strategy Games"
+          ]
+        },
+        {
+          "Education": [
+            "History",
+            "World Civilizations"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Mia Rodriguez",
+      "email": "miarodriguez@example.com",
+      "password": "$2b$10$UniqueHashHereForMia",
+      "birthdate": "1998-06-15",
+      "username": "miar",
+      "selectedLanguages": [
+        "English",
+        "Spanish - Español"
+      ],
+      "userIntrest": [
+        "Indie Music",
+        "Film Photography",
+        "Poetry"
+      ],
+      "userInterests": [
+        {
+          "Music": [
+            "Indie Bands",
+            "Live Music"
+          ]
+        },
+        {
+          "Hobbies": [
+            "Film Photography",
+            "Darkroom Processing"
+          ]
+        },
+        {
+          "Literature": [
+            "Poetry",
+            "Contemporary Poetry"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Jacob Nguyen",
+      "email": "jacobnguyen@example.com",
+      "password": "$2b$10$UniqueHashHereForJacob",
+      "birthdate": "1992-09-22",
+      "username": "jacobn",
+      "selectedLanguages": [
+        "English",
+        "Vietnamese - Tiếng Việt"
+      ],
+      "userIntrest": [
+        "Mountain Biking",
+        "DIY Electronics",
+        "Sustainable Gardening"
+      ],
+      "userInterests": [
+        {
+          "Outdoor Activities": [
+            "Mountain Biking",
+            "Hiking"
+          ]
+        },
+        {
+          "Technology": [
+            "DIY Electronics",
+            "Robotics"
+          ]
+        },
+        {
+          "Gardening": [
+            "Sustainable Gardening",
+            "Urban Gardening"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Isabelle Chen",
+      "email": "isabellechen@example.com",
+      "password": "$2b$10$UniqueHashHereForIsabelle",
+      "birthdate": "1994-12-04",
+      "username": "isabellec",
+      "selectedLanguages": [
+        "English",
+        "Mandarin - 普通话"
+      ],
+      "userIntrest": [
+        "Fashion Design",
+        "Minimalist Lifestyle",
+        "Travel Blogging"
+      ],
+      "userInterests": [
+        {
+          "Fashion": [
+            "Fashion Design",
+            "Sustainable Fashion"
+          ]
+        },
+        {
+          "Lifestyle": [
+            "Minimalism",
+            "Decluttering"
+          ]
+        },
+        {
+          "Travel": [
+            "Travel Blogging",
+            "Solo Travel"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Elijah Patel",
+      "email": "elijahpatel@example.com",
+      "password": "$2b$10$UniqueHashHereForElijah",
+      "birthdate": "1989-03-18",
+      "username": "elijahp",
+      "selectedLanguages": [
+        "English",
+        "Hindi - हिन्दी"
+      ],
+      "userIntrest": [
+        "Astrophotography",
+        "Science Fiction",
+        "Coding Challenges"
+      ],
+      "userInterests": [
+        {
+          "Photography": [
+            "Astrophotography",
+            "Landscape Photography"
+          ]
+        },
+        {
+          "Literature": [
+            "Science Fiction",
+            "Fantasy Novels"
+          ]
+        },
+        {
+          "Technology": [
+            "Coding Challenges",
+            "Software Development"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Charlotte Wong",
+      "email": "charlottewong@example.com",
+      "password": "$2b$10$UniqueHashHereForCharlotte",
+      "birthdate": "1996-11-08",
+      "username": "charlottew",
+      "selectedLanguages": [
+        "English",
+        "Cantonese - 廣東話"
+      ],
+      "userIntrest": [
+        "Urban Sketching",
+        "Jazz Music",
+        "Vintage Fashion"
+      ],
+      "userInterests": [
+        {
+          "Art": [
+            "Urban Sketching",
+            "Watercolor Painting"
+          ]
+        },
+        {
+          "Music": [
+            "Jazz Music",
+            "Live Performances"
+          ]
+        },
+        {
+          "Fashion": [
+            "Vintage Fashion",
+            "Thrift Shopping"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Liam Tanaka",
+      "email": "liamtanaka@example.com",
+      "password": "$2b$10$UniqueHashHereForLiam",
+      "birthdate": "1991-10-23",
+      "username": "liamt",
+      "selectedLanguages": [
+        "English",
+        "Japanese - 日本語"
+      ],
+      "userIntrest": [
+        "Anime",
+        "Video Games",
+        "Technology"
+      ],
+      "userInterests": [
+        {
+          "Entertainment": [
+            "Anime",
+            "Manga"
+          ]
+        },
+        {
+          "Gaming": [
+            "Video Games",
+            "E-Sports"
+          ]
+        },
+        {
+          "Technology": [
+            "Latest Gadgets",
+            "Tech Reviews"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Ava Singh",
+      "email": "avasingh@example.com",
+      "password": "$2b$10$UniqueHashHereForAva",
+      "birthdate": "1987-08-15",
+      "username": "avas",
+      "selectedLanguages": [
+        "English",
+        "Punjabi - ਪੰਜਾਬੀ"
+      ],
+      "userIntrest": [
+        "Cooking",
+        "Gardening",
+        "Travel"
+      ],
+      "userInterests": [
+        {
+          "Culinary": [
+            "Cooking",
+            "Baking"
+          ]
+        },
+        {
+          "Hobbies": [
+            "Gardening",
+            "Organic Farming"
+          ]
+        },
+        {
+          "Travel": [
+            "Adventure Travel",
+            "Cultural Experiences"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Oliver Zhang",
+      "email": "oliverzhang@example.com",
+      "password": "$2b$10$UniqueHashHereForOliver",
+      "birthdate": "1993-05-29",
+      "username": "oliverz",
+      "selectedLanguages": [
+        "English",
+        "Mandarin - 普通话"
+      ],
+      "userIntrest": [
+        "Photography",
+        "Urban Exploration",
+        "Cycling"
+      ],
+      "userInterests": [
+        {
+          "Photography": [
+            "Landscape Photography",
+            "Cityscapes"
+          ]
+        },
+        {
+          "Adventure": [
+            "Urban Exploration",
+            "Hiking"
+          ]
+        },
+        {
+          "Sports": [
+            "Cycling",
+            "Mountain Biking"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Sophie Martinez",
+      "email": "sophiemartinez@example.com",
+      "password": "$2b$10$UniqueHashHereForSophie",
+      "birthdate": "1995-12-07",
+      "username": "sophiem",
+      "selectedLanguages": [
+        "English",
+        "Spanish - Español"
+      ],
+      "userIntrest": [
+        "Fashion Blogging",
+        "Social Media",
+        "Lifestyle"
+      ],
+      "userInterests": [
+        {
+          "Fashion": [
+            "Fashion Blogging",
+            "Street Style"
+          ]
+        },
+        {
+          "Media": [
+            "Social Media Trends",
+            "Influencer Marketing"
+          ]
+        },
+        {
+          "Lifestyle": [
+            "Healthy Living",
+            "Mindfulness"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "user": {
+      "name": "Noah Schwartz",
+      "email": "noahschwartz@example.com",
+      "password": "$2b$10$UniqueHashHereForNoah",
+      "birthdate": "1989-04-18",
+      "username": "noahs",
+      "selectedLanguages": [
+        "English",
+        "Hebrew - עברית"
+      ],
+      "userIntrest": [
+        "Startups",
+        "Innovation",
+        "Cryptocurrency"
+      ],
+      "userInterests": [
+        {
+          "Business": [
+            "Startups",
+            "Entrepreneurship"
+          ]
+        },
+        {
+          "Technology": [
+            "Innovation",
+            "New Technologies"
+          ]
+        },
+        {
+          "Finance": [
+            "Cryptocurrency",
+            "Blockchain"
+          ]
+        }
+      ]
+    }
+  }
+]

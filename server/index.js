@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
 
 });
 const User = mongoose.model('User', userSchema);
-
+const User2 = mongoose.model('users2', userSchema);
 app.use(express.json());
 
 // Signup endpoint
@@ -163,6 +163,20 @@ app.get('/user', verifyToken, async (req, res) => {
         res.json({
             username: user.name,
             userId: user._id
+        });
+        console.log(user._id)
+    } catch (error) {
+        console.error('User info error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/getAllUsers', async (req, res) => {
+    try {
+        const user = await User.find();
+        console.log(user);
+        res.json({
+            data: user
         });
         console.log(user._id)
     } catch (error) {
