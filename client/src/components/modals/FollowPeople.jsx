@@ -1,7 +1,46 @@
 import { CheckCircleFilled, CheckCircleOutlined, XOutlined } from '@ant-design/icons'
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios';
 
-const FollowPeople = () => {
+import { useNavigate } from 'react-router-dom'
+
+const FollowPeople = ({ data, birthdate, username, selectedLanguages, selectedInterests }) => {
+  const [error, setError] = useState(null)
+  const navigate = useNavigate()
+
+  console.log(username)
+
+  const redirectToLogin = async (e) => {
+    e.preventDefault();
+
+    const { name, email, password } = data;
+
+    console.log(data)
+    try {
+      const response = await axios.post("http://localhost:8080/signup", { name, email, password, birthdate, username, selectedLanguages, selectedInterests });
+      console.log(response, "response:all data of user")
+
+      // dispatch(createUser(response.data.data)); // Dispatch action correctly
+      // setData({
+      //   name: "",
+      //   email: "",
+      //   password: "",
+      // });
+      navigate("/login");
+      alert("Sign up successful. Please log in.");
+
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.error === 'User already exists') {
+        setError('User already exists');
+      } else {
+        setError('Sign up failed. Please try again.');
+      }
+    }
+  };
+
+
+
   return (
     <div className='flex justify-center bg-gray-300'>
       <div className='flex flex-col  w-[500px] my-10 bg-white rounded-[1rem]'>
@@ -18,10 +57,12 @@ const FollowPeople = () => {
 
           <WhoToFollowCard />
 
-          <div className='rounded-full p-2 mb-10 text-center bg-gray-500'>
-            <button className='text-sm font-bold text-white'>Next</button>
-          </div>
+          <button onClick={redirectToLogin} className=' cursor-pointer mb-5 bg-black text-white rounded-full p-3 mt-20 text-center border border-gray-300' >
+            <span className=' block font-bold  w-96'>Next</span>
+          </button>
         </div>
+
+        {error && <div>{error}</div>}
       </div>
     </div>
   )

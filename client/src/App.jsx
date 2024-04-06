@@ -20,24 +20,37 @@ import AskBirthdate from './components/modals/AskBirthdate';
 import ChooseUsername from './components/modals/ChooseUsername';
 import ChooseLanguages from './components/modals/ChooseLanguages';
 import ChooseTopics from './components/modals/ChooseTopics';
-import ChooseSubtopics from './components/modals/ChooseSubtopics';
+// import ChooseSubtopics from './components/modals/ChooseSubtopics';
 import FollowPeople from './components/modals/FollowPeople';
 
+import { useState } from 'react';
+
 const App = () => {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [birthdate, setBirthdate] = useState('');
+  const [username, setUsername] = useState('');
+  const [selectedLanguages, setSelectedLanguages] = useState([])
+  const [selectedInterests, setSelectedInterests] = useState([])
   return (
 
     <Router>
       <div >
         <Routes>
 
-          <Route path="/" element={<Signup />} />
+          <Route path="/" element={<Signup data={data} setData={setData} />} />
+          <Route path="/askBirtdate" element={<AskBirthdate birthdate={birthdate} setBirthdate={setBirthdate} />} />
+          <Route path="/chooseUsername" element={<ChooseUsername username={username} setUsername={setUsername} />} />
+          <Route path="/chooseLanguages" element={<ChooseLanguages selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />} />
+          <Route path="/chooseTopics" element={<ChooseTopics selectedInterests={selectedInterests} setSelectedInterests={setSelectedInterests} />} />
+
+
+          {/* main  */}
+          <Route path="/followPeople" element={<FollowPeople data={data} birthdate={birthdate} username={username} selectedLanguages={selectedLanguages} selectedInterests={selectedInterests} />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/askBirtdate" element={<AskBirthdate />} />
-          <Route path="/chooseUsername" element={<ChooseUsername />} />
-          <Route path="/chooseLanguages" element={<ChooseLanguages />} />
-          <Route path="/chooseTopics" element={<ChooseTopics />} />
-          <Route path="/chooseSubtopics" element={<ChooseSubtopics />} />
-          <Route path="/followPeople" element={<FollowPeople />} />
 
 
           <Route path="/home" element={<Home />} />

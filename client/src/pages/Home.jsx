@@ -8,12 +8,12 @@ const Home = () => {
     return (
         <div className="flex justify-center gap-10">
             <div className="flex justify-center gap-10">
-            <div className="flex gap-2">
+                <div className="flex gap-2">
                     <div>
                         <Sidebar />
                     </div>
                     <div className="w-[600px] border-r border-l ">
-                    <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center">
 
                             <nav className="flex gap-6 m-3 font-semibold text-gray-500">
                                 <div>For You</div>
@@ -22,8 +22,8 @@ const Home = () => {
                                 <div>Podcasters of India</div>
                                 <div>Animals</div>
                             </nav>
-                        <div className="pr-4"><SettingOutlined /></div>
-                    </div>
+                            <div className="pr-4"><SettingOutlined /></div>
+                        </div>
 
                         <div className="border-y">
                             <div className="flex" >
@@ -42,29 +42,29 @@ const Home = () => {
                                         />
                                     </div>
 
-                                <div className="flex justify-between gap-x-20 mb-2 mr-3">
-                                    <div className="flex justify-center items-center gap-x-5">
-                                        <div className="text-blue-500 text-lg"><CameraOutlined /></div>
-                                        <div className="text-blue-500 text-xl"><GifOutlined /></div>
-                                        <div className="text-blue-500"><SmileOutlined /></div>
-                                        <div className="text-blue-500"><EnvironmentOutlined /></div>
-                                    </div>
-                                    <div className="gap-x-2 px-4 py-1 bg-sky-300 rounded-full">
-                                        <span className="text-white  font-bold">Post</span>
+                                    <div className="flex justify-between gap-x-20 mb-2 mr-3">
+                                        <div className="flex justify-center items-center gap-x-5">
+                                            <div className="text-blue-500 text-lg"><CameraOutlined /></div>
+                                            <div className="text-blue-500 text-xl"><GifOutlined /></div>
+                                            <div className="text-blue-500"><SmileOutlined /></div>
+                                            <div className="text-blue-500"><EnvironmentOutlined /></div>
+                                        </div>
+                                        <div className="gap-x-2 px-4 py-1 bg-sky-300 rounded-full">
+                                            <span className="text-white  font-bold">Post</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="recommendation">
-                        <TweetCard></TweetCard>
-                    </div>
+                        <div className="recommendation">
+                            <TweetCard></TweetCard>
+                        </div>
 
                     </div>
                     <div className="ml-5">
                         <Sidebar2 />
-                </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,18 +105,18 @@ const TweetCard = () => {
                     <div className="flex justify-between items-center mt-3">
                         <div className="flex gap-14 ml-2 ">
 
-                        <div className="flex justify-center items-center gap-1 text-gray-700"><WechatWorkOutlined />
-                            <span className="text-xs">50</span>
-                        </div>
-                        <div className="flex justify-center items-center gap-1 text-gray-700"><HeartOutlined />
-                            <span className="text-xs">475</span>
-                        </div>
-                        <div className="flex justify-center items-center gap-1 text-gray-700"><RetweetOutlined />
-                            <span className="text-xs">2.9K</span>
-                        </div>
-                        <div className="flex justify-center items-center gap-1 text-gray-700"><BarChartOutlined />
-                            <span className="text-xs">151K</span>
-                        </div>
+                            <div className="flex justify-center items-center gap-1 text-gray-700"><WechatWorkOutlined />
+                                <span className="text-xs">50</span>
+                            </div>
+                            <div className="flex justify-center items-center gap-1 text-gray-700"><HeartOutlined />
+                                <span className="text-xs">475</span>
+                            </div>
+                            <div className="flex justify-center items-center gap-1 text-gray-700"><RetweetOutlined />
+                                <span className="text-xs">2.9K</span>
+                            </div>
+                            <div className="flex justify-center items-center gap-1 text-gray-700"><BarChartOutlined />
+                                <span className="text-xs">151K</span>
+                            </div>
                         </div>
                         <div className="flex gap-4">
                             <div className="text-gray-700"><BookOutlined /></div>

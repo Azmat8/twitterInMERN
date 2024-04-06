@@ -34,6 +34,15 @@ const userSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
+    birthdate: String,
+    username: {
+        type: String,
+        unique: true
+    },
+    selectedLanguages: [],
+    selectedInterests: [],
+
+
 });
 const User = mongoose.model('User', userSchema);
 
@@ -42,7 +51,7 @@ app.use(express.json());
 // Signup endpoint
 app.post('/signup', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, birthdate, username, selectedLanguages, selectedInterests } = req.body;
 
         // Check if user already exists
         const existingUser = await User.findOne({ email });
@@ -53,8 +62,9 @@ app.post('/signup', async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
+
         // Create new user
-        const newUser = new User({ name, email, password: hashedPassword });
+        const newUser = new User({ name, email, password: hashedPassword, birthdate, username, selectedLanguages, selectedInterests });
         await newUser.save();
 
         res.status(201).json({ data: newUser, message: 'User created successfully' });
@@ -63,6 +73,60 @@ app.post('/signup', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+
+// Check if user already exists
+app.post('/checkemail', async (req, res) => {
+    try {
+        const { name, email, password, } = req.body;
+
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: 'User already exists' });
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // const existingUsername = await User.findOne({ username });
+        // if (existingUsername) {
+        //     return res.status(400).json({ error: 'Username already exists' });
+        // }
+
+        // Create new user
+        const newUser = new User({ name, email, password: hashedPassword, });
+
+        res.status(201).json({ data: newUser, message: 'User created successfully' });
+    } catch (error) {
+        console.error('Signup error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+// check @username is valid
+app.post('/checkusername', async (req, res) => {
+    try {
+        const { username } = req.body;
+
+        // Check if user already exists
+        const existingUserName = await User.findOne({ username });
+        if (existingUserName) {
+            return res.status(400).json({ error: '@UserName already exists' });
+        }
+
+        // Create new user
+        const newUser = new User({ username });
+        res.status(201).json({ data: newUser, message: '@UserName created successfully' });
+    } catch (error) {
+        console.error('UserName Eorro:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
 
 // Login endpoint
 app.post('/login', async (req, res) => {

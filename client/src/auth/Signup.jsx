@@ -10,49 +10,83 @@ import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../features/user/userSlice";
 
 
-const Signup = () => {
-    const [data, setData] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
+const Signup = ({ data, setData }) => {
+
+    console.log(data)
+
+
+    const [error, setError] = useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
 
 
-    const signupUser = async (e) => {
+    // const signupUser = async (e) => {
+    //     e.preventDefault();
+
+    //     const { name, email, password } = data;
+    //     try {
+    //         const response = await axios.post("http://localhost:8080/signup", { name, email, password });
+    //         console.log(response, "response")
+
+    //         dispatch(createUser(response.data.data)); // Dispatch action correctly
+    //         setData({
+    //             name: "",
+    //             email: "",
+    //             password: "",
+    //         });
+    //         navigate("/askBirtdate");
+    //         alert("Sign up successful. Please log in.");
+
+    //     } catch (error) {
+    //         console.log(error);
+    //         if (error.response.data.error === 'User already exists') {
+    //             setError('User already exists');
+    //         } else {
+    //             setError('Sign up failed. Please try again.');
+    //         }
+    //     }
+    // };
+
+    // console.log(data, "apna data")
+
+    const checkEmail = async (e) => {
         e.preventDefault();
 
         const { name, email, password } = data;
         try {
-            const response = await axios.post("http://localhost:8080/signup", { name, email, password });
+            const response = await axios.post("http://localhost:8080/checkemail", { name, email, password });
             console.log(response, "response")
 
             dispatch(createUser(response.data.data)); // Dispatch action correctly
             setData({
-                name: "",
-                email: "",
-                password: "",
+                name,
+                email,
+                password,
             });
             navigate("/askBirtdate");
-            // navigate("/chooseUsername");
-            // navigate("/chooseLanguages");
-            // navigate("/chooseTopics");
-            // navigate("/chooseSubtopics");
-            // navigate("/followPeople");
-            // alert("Sign up successful. Please log in.");
-            // navigate("/login");
+            alert("Sign up successful. Please log in.");
+
         } catch (error) {
             console.log(error);
-            alert("Sign up failed. Please try again.");
+            if (error.response.data.error === 'User already exists') {
+                setError('User already exists');
+            } else {
+                setError('Sign up failed. Please try again.');
+            }
         }
     };
 
 
+
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
+    };
+
+    const isFormValid = () => {
+        const { name, email, password } = data;
+        return name.trim() !== "" && email.trim() !== "" && password.trim() !== "";
     };
 
     return (<div>
@@ -61,7 +95,7 @@ const Signup = () => {
                 <h2 className="text-4xl text-white-bold text-center mb-6 font-bold">
                     SignUp
                 </h2>
-                <form onSubmit={signupUser}>
+                <form onSubmit={checkEmail}>
                     <div className="relative my-4">
                         <label>Name</label>
 
@@ -86,6 +120,10 @@ const Signup = () => {
                         />
                     </div>
                     <div>
+                        {error && <div className=" text-red-600 p-2">{error}</div>}
+
+                    </div>
+                    <div>
                         <label>Password</label>
                         <input
                             type="password"
@@ -96,12 +134,20 @@ const Signup = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <button
+                    {/* <button
                         type="submit"
                         className="w-full mb-4 text-[18px] mt-6 rounded-full  bg-zinc-700 text-white font-bold py-2 hover:bg-black hover:text-gray-300 transition-colors duration-500 transitio "
 
                     >
                         Signup
+                    </button> */}
+                    <button
+                        type="submit"
+                        className={`w-full mb-4 text-[18px] mt-6 rounded-full bg-zinc-700 text-white font-bold py-2 ${isFormValid() ? 'hover:bg-black hover:text-gray-300 transition-colors duration-500' : 'opacity-50 cursor-not-allowed'
+                            }`}
+                        disabled={!isFormValid()}
+                    >
+                        Next
                     </button>
                 </form>
                 <div className="flex justify-center items-center gap-x-2 mt-2">
