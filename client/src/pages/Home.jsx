@@ -5,6 +5,8 @@ import posts from "../posts.json";
 import { BarChartOutlined, BookOutlined, CameraOutlined, CheckCircleFilled, EllipsisOutlined, EnvironmentOutlined, FileImageOutlined, GifOutlined, HeartOutlined, RetweetOutlined, SettingOutlined, SmileOutlined, UploadOutlined, WechatWorkOutlined } from '@ant-design/icons'
 import moment from "moment";
 const Home = () => {
+
+
   const user = useSelector((store) => store.user.name);
   console.log(user)
   return (
@@ -60,7 +62,11 @@ const Home = () => {
             </div>
 
             <div className="recommendation">
-              <TweetCard></TweetCard>
+              {
+                posts.map((post) => (
+                  <TweetCard key={post.id} post={post} />
+                ))
+              }
             </div>
 
           </div>
@@ -75,54 +81,75 @@ const Home = () => {
 
 export default Home
 
+const TweetCard = ({ post }) => {
+  const { user, created_at, text, entities } = post;
+  const formattedDate = moment(created_at).format('MMM D');
 
+  const renderMedia = (media) => {
+    return media.map((item, index) => {
+      switch (item.type) {
+        case 'photo':
+          return <img key={index} className="rounded-2xl mt-2 w-[98%]" src={item.media_url_https} alt="" />;
+        case 'video':
+          return (
+            <div key={index} className="w-[30rem]  mt-2">
+              <video controls autoPlay loop className='w-full h-auto rounded-2xl'>
+                <source src={item.media_url_https} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          );
+        default:
+          return null;
+      }
+    });
+  };
 
-const TweetCard = () => {
   return (
-    <div className="bg-gray-50">
+    <div className="border-b hover:bg-gray-100 transition-all cursor-pointer">
       <div className="flex p-3 mr-2">
-        <div className="w-14">
-          <img className="rounded-full" src="https://pbs.twimg.com/profile_images/914888589670043654/KVvwjcWA_400x400.jpg" alt="" />
+        <div className="w-20">
+          <img className="rounded-full" width={45} src={user.profile_image_url_https} alt={user.name} />
         </div>
         <div className="ml-2">
-          <div className="flex justify-between" >
+          <div className="flex justify-between">
             <div className="flex gap-2 items-center">
-              <span className="font-semibold">Massimo</span>
-              <span className="text-blue-500"><CheckCircleOutlined /></span>
-              <span className="text-gray-500 text-sm">@Rainmaker1973</span>
+              <span className="font-semibold">{user.name}</span>
+              <span className="text-blue-500"><CheckCircleFilled /></span>
+              <span className="text-gray-500 text-sm">@{user.screen_name}</span>
               <span className="text-gray-500 text-sm">&middot;</span>
-              <span className="text-gray-500 text-sm">Apr 1</span>
+              <span className="text-gray-500 text-sm">{formattedDate}</span>
             </div>
             <div>
-              <span><EllipsisOutlined /> </span>
+              <span><EllipsisOutlined /></span>
             </div>
           </div>
-          <div className="text-sm">
-            <p>How refraction can paint a 30-meter loblolly pine forest in a drop of water.</p>
-            <p className="pt-4 pb-2">[📸 Fallout99]</p>
+          <div className="text-gray-700 mb-3">
+            <p>{text}</p>
           </div>
-          <div>
-            <img className="rounded-2xl" src="https://pbs.twimg.com/media/GKF15vqWYAARfEm?format=jpg&name=small" alt="asdas" />
-          </div>
+          {entities.media && renderMedia(entities.media)}
           <div className="flex justify-between items-center mt-3">
-            <div className="flex gap-14 ml-2 ">
-
-              <div className="flex justify-center items-center gap-1 text-gray-700"><WechatWorkOutlined />
-                <span className="text-xs">50</span>
+            <div className="flex gap-16">
+              <div className="flex items-center gap-1 text-gray-500">
+                <WechatWorkOutlined />
+                <span>50</span>
               </div>
-              <div className="flex justify-center items-center gap-1 text-gray-700"><HeartOutlined />
-                <span className="text-xs">475</span>
+              <div className="flex items-center gap-1 text-gray-500">
+                <RetweetOutlined />
+                <span>2.9K</span>
               </div>
-              <div className="flex justify-center items-center gap-1 text-gray-700"><RetweetOutlined />
-                <span className="text-xs">2.9K</span>
+              <div className="flex items-center gap-1 text-gray-500">
+                <HeartOutlined />
+                <span>475</span>
               </div>
-              <div className="flex justify-center items-center gap-1 text-gray-700"><BarChartOutlined />
-                <span className="text-xs">151K</span>
+              <div className="flex items-center gap-1 text-gray-500">
+                <BarChartOutlined />
+                <span>151K</span>
               </div>
             </div>
-            <div className="flex gap-4">
-              <div className="text-gray-700"><BookOutlined /></div>
-              <div className="text-gray-700"><UploadOutlined /></div>
+            <div className="flex gap-2">
+              <BookOutlined className="text-gray-500" />
+              <UploadOutlined className="text-gray-500" />
             </div>
           </div>
         </div>

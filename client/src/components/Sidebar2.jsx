@@ -1,4 +1,4 @@
-import { CheckCircleOutlined, EllipsisOutlined , CheckCircleFilled} from "@ant-design/icons";
+import { CheckCircleOutlined, EllipsisOutlined, CheckCircleFilled } from "@ant-design/icons";
 import SearchBar from "./Searchbar";
 
 const Sidebar2 = () => {
@@ -52,7 +52,7 @@ const Sidebar2 = () => {
             </div>
         </div>
         <div>
-            <WhoToFollowCard/>
+            <WhoToFollowCard />
         </div>
 
     </div>
@@ -94,7 +94,7 @@ const WhoToFollowCard = () => {
             name: 'Magic | マジック',
             handle: 'MagicStaysGod',
             avatar: 'https://pbs.twimg.com/profile_images/1627496447527768070/V-GicvkF_400x400.jpg',
-        },     
+        },
         {
             name: 'PlayStation',
             handle: 'PlayStation',
@@ -104,7 +104,7 @@ const WhoToFollowCard = () => {
 
     return (
         // <div className="max-w-sm rounded-2xl overflow-hidden shadow-lg ">
-            <div className="bg-[#f7f9f9] mb-4 p-3 rounded-2xl">
+        <div className="bg-[#f7f9f9] mb-4 p-3 rounded-2xl">
             <div className="">
                 <div className="font-bold text-xl mb-2">Who to follow</div>
                 {profiles.map((profile) => (
