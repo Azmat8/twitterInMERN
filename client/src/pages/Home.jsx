@@ -2,7 +2,7 @@ import Sidebar from "../components/Sidebar";
 import Sidebar2 from "../components/Sidebar2";
 import { useSelector } from "react-redux";
 import posts from "../posts.json";
-import { BarChartOutlined, BookOutlined, CameraOutlined, CheckCircleFilled, CheckCircleOutlined, EllipsisOutlined, EnvironmentOutlined, FileImageOutlined, GifOutlined, HeartOutlined, RetweetOutlined, SettingOutlined, SmileOutlined, UploadOutlined, WechatWorkOutlined } from '@ant-design/icons'
+import { BarChartOutlined, BookOutlined, CameraOutlined, CheckCircleFilled, EllipsisOutlined, EnvironmentOutlined, FileImageOutlined, GifOutlined, HeartOutlined, RetweetOutlined, SettingOutlined, SmileOutlined, UploadOutlined, WechatWorkOutlined } from '@ant-design/icons'
 import moment from "moment";
 const Home = () => {
   const user = useSelector((store) => store.user.name);
