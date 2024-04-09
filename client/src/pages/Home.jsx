@@ -1,14 +1,84 @@
+import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Sidebar2 from "../components/Sidebar2";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import posts from "../posts.json";
 import { BarChartOutlined, BookOutlined, CameraOutlined, CheckCircleFilled, EllipsisOutlined, EnvironmentOutlined, FileImageOutlined, GifOutlined, HeartOutlined, RetweetOutlined, SettingOutlined, SmileOutlined, UploadOutlined, WechatWorkOutlined } from '@ant-design/icons'
 import moment from "moment";
+import axios from 'axios';
+import { createPost } from "../features/user/postSlice";
+
 const Home = () => {
 
+  const dispatch = useDispatch();
 
-  const user = useSelector((store) => store.user.name);
-  console.log(user)
+  const [post, setPost] = useState({
+    content: "",
+  });
+
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const user = useSelector((store) => store.user);
+
+  user.id
+
+  const handleCreatePost = async (e) => {
+    e.preventDefault();
+
+    const hashtagRegex = /#[a-zA-Z0-9_]+/g;
+
+    // Extract hashtags from the text using the regular expression
+    const hashtagsArray = post?.content?.match(hashtagRegex);
+console.log(selectedFiles);
+    const payload = {
+      content: post?.content,
+      author: user?.id,
+      hashtags: hashtagsArray,
+      mediaAttachments: selectedFiles
+    }
+
+    console.log("payload.mediaAttachments", payload.mediaAttachments);
+    try {
+      const response = await axios.post("http://localhost:8080/createPost", JSON.stringify(payload), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // console.log(response);
+
+    // try {
+    //   const response = await axios.post("http://localhost:8080/createPost", payload);
+    //   console.log("response", response);
+
+      dispatch(createPost(response.data.data));
+
+      setPost({
+        content: ""
+      })
+
+      setSelectedFiles([])
+
+      alert("Post created Successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleContentChange = (e) => {
+    setPost({ ...post, content: e.target.value });
+  };
+
+
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    setSelectedFiles([...selectedFiles, ...files]);
+  };
+
+  useEffect(() => {
+    // console.log("selectedFiles", selectedFiles);
+  }, [selectedFiles]);
+
   return (
     <div className="flex justify-center gap-10">
       <div className="flex justify-center gap-10">
@@ -38,26 +108,78 @@ const Home = () => {
                     alt="Profile"
                   />
                 </div>
-                <div className="w-full">
-                  <div>
-                    <input
-                      className="flex-1 mt-4 mb-2 p-2 text-xl w-full focus:outline-none"
-                      placeholder="What is happening?!"
-                    />
-                  </div>
+                <form onSubmit={handleCreatePost} className="w-full mr-4">
+                  <div className="">
+                    <div className="">
+                      <textarea
+                        type="text"
+                        name="content"
+                        placeholder="Enter content"
+                        value={post.content}
+                        onChange={handleContentChange}
+                        className="flex-1 mt-4 p-2 text-gray-700 text-xl w-full focus:outline-none"
+                      />
+                    </div>
 
-                  <div className="flex justify-between gap-x-20 mb-2 mr-3">
-                    <div className="flex justify-center items-center gap-x-5">
-                      <div className="text-blue-500 text-lg"><CameraOutlined /></div>
-                      <div className="text-blue-500 text-xl"><GifOutlined /></div>
-                      <div className="text-blue-500"><SmileOutlined /></div>
-                      <div className="text-blue-500"><EnvironmentOutlined /></div>
+                    <div>
+                      <label htmlFor="mediaFiles" className="text-blue-500 text-lg cursor-pointer">
+                        <CameraOutlined />
+                      </label>
+                      <input
+                        type="file"
+                        id="mediaFiles"
+                        onChange={handleFileChange}
+                        multiple
+                        style={{ display: 'none' }}
+                        className="cursor-pointer"
+                      />
+                      {selectedFiles.length > 0 && (
+                        <div>
+                          <ul>
+                            {selectedFiles.map((file, index) => (
+                              <li key={index}>
+                                <img
+                                  src={URL.createObjectURL(file)}
+                                  alt={file.name}
+                                  style={{ maxWidth: '300px' }}
+                                  className="m-4 rounded-2xl shadow hover:opacity-90"
+                                />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
-                    <div className="gap-x-2 px-4 py-1 bg-sky-300 rounded-full">
-                      <span className="text-white  font-bold">Post</span>
+                    <div className="flex justify-between gap-x-20 mb-2 mr-3">
+                      <div className="flex justify-center items-center gap-x-5">
+
+
+                        {/* <div>
+                        <label htmlFor="mediaFiles" className="text-blue-500 text-lg cursor-pointer">
+                          <CameraOutlined />
+                        </label>
+                        <input
+                          type="file"
+                          id="mediaFiles"
+                          onChange={handleFileChange}
+                          multiple
+                          style={{ display: 'none' }} // Hide the input visually but keep it accessible
+                          className="cursor-pointer"
+                        />
+                      </div> */}
+
+                        <div className="text-blue-500 text-xl"><GifOutlined /></div>
+                        <div className="text-blue-500"><SmileOutlined /></div>
+                        <div className="text-blue-500"><EnvironmentOutlined /></div>
+                      </div>
+                      <div className="gap-x-2 ">
+                        <button
+                          type="submit"
+                          className="text-white  font-bold px-4 py-1 bg-sky-500 rounded-full">Post</button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
 

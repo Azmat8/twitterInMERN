@@ -24,7 +24,8 @@ const Login = () => {
                 email,
                 password,
             });
-            console.log(response, ":sdfsdfsdfdsffsdfsddsfdfdsfsdssssssssssssssssss");
+            console.log(response, "User Logged in Successfully");
+            
             localStorage.setItem("token", response.data.token);
             dispatch(createUser(response.data.data))
             setData({

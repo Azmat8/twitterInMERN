@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors')
-const axios = require('axios')
+const axios = require('axios');
+const multer = require('multer');
 
 const app = express();
 
@@ -135,6 +136,7 @@ app.post('/login', async (req, res) => {
 
         // Check if user exists
         const user = await User.findOne({ email });
+        // console.log("user", user);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
@@ -164,7 +166,7 @@ app.get('/user', verifyToken, async (req, res) => {
             username: user.name,
             userId: user._id
         });
-        console.log(user._id)
+        // console.log(user._id)
     } catch (error) {
         console.error('User info error:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -174,18 +176,226 @@ app.get('/user', verifyToken, async (req, res) => {
 app.get('/getAllUsers', async (req, res) => {
     try {
         const user = await User.find();
-        console.log(user);
+        // console.log(user);
         res.json({
             data: user
         });
-        console.log(user._id)
+        // console.log(user._id)
     } catch (error) {
         console.error('User info error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
+// , author, hashtags, mediaAttachments,isRetweet, originalPost, visibility, location
+// user posts
+// , author, hashtags, mediaAttachments,isRetweet, originalPost, visibility, location
 
+const fileSchema = new mongoose.Schema({
+    filename: String,
+    path: String,
+    size: Number
+  });
+  
+  const File = mongoose.model('File', fileSchema);
+
+
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname);
+    }
+  });
+  
+  const upload = multer({ storage: storage });
+
+
+const postSchema = new mongoose.Schema({
+    content: { type: String, required: true },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    retweetCount: { type: Number, default: 0 },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+    hashtags: [{ type: String }],
+    mediaAttachments: [{ type: String }], // Store file paths or URLs
+    // isRetweet: { type: Boolean, default: false },
+    // originalPost: { type: mongoose.Schema.Types.ObjectId},
+    // visibility: { type: String, default: 'public' }, // Could be 'public', 'private', etc.
+    // location: { type: String },
+    // clickThroughRate: { type: Number, default: 0 }, // Additional field for recommendation algorithm
+    // qualityScore: { type: Number }, // Additional field for content quality
+    // tags: [{ type: String }], // Additional structured topic tags
+    // sentiment: { type: String, enum: ['positive', 'negative', 'neutral'] }, // Additional sentiment analysis
+}, {
+    timestamps: true // Automatically manages createdAt and updatedAt fields
+});
+
+const Post = mongoose.model('Post', postSchema);
+
+app.post('/createPost', upload.array('mediaAttachments'), async (req, res) => {
+    try {
+      const { content, author, hashtags, mediaAttachments } = req.body;
+      const filepaths = mediaAttachments.map(file => file.path); // Store file paths
+  
+      // Create new post
+      const newPost = new Post({ content, author, hashtags, mediaAttachments });
+
+      console.log("newPost",newPost);
+      await newPost.save();
+  
+      res.status(201).json({ data: newPost, message: 'Post created successfully' });
+    } catch (error) {
+      console.error('New Post error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
+
+// app.post('/createPost', async (req, res) => {
+//     try {
+//         const { content, author, hashtags, mediaAttachments  } = req.body;
+//         console.log(mediaAttachments, "mediaAttachments");
+//         console.log(req.body, "createPost")
+
+//         // Create new post
+//         const newPost = new Post({ content, author, hashtags, mediaAttachments });
+//         await newPost.save();
+
+//         res.status(201).json({ data: newPost, message: 'Post created successfully' });
+//     } catch (error) {
+//         console.error('New Post error:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
+
+//commentsSchema
+
+const commentSchema = new mongoose.Schema({
+    text: { type: String, required: true },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+}, { timestamps: true });
+
+const Comment = mongoose.model('Comment', commentSchema);
+
+app.put('/updatePostLike', async (req, res) => {
+    try {
+        const { userId, postId } = req.body;
+
+        // Find the post by postId
+        const post = await Post.findOne({ _id: postId });
+
+        // Check if the post exists
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        // Check if the user has already liked the post
+        if (post.likes.includes(userId)) {
+            return res.status(400).json({ error: 'User has already liked the post' });
+        }
+
+        // Add the userId to the likes array
+        post.likes.push(userId);
+
+        // Save the updated post
+        await post.save();
+
+        res.status(200).json({ data: post, message: 'Post like updated successfully' });
+    } catch (error) {
+        console.error('Update Post Like error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.post('/retweet', async (req, res) => {
+    try {
+        const { userId, postId } = req.body;
+
+        // Find the original post by postId
+        const originalPost = await Post.findById(postId)
+            .populate('author')
+            .populate('comments')
+            .populate('hashtags');
+
+        // Check if the original post exists
+        if (!originalPost) {
+            return res.status(404).json({ error: 'Original post not found' });
+        }
+
+        // Create a retweet based on the original post
+        const retweet = new Post({
+            content: originalPost.content,
+            author: originalPost.author, // Set the author of the retweet to match the author of the original post
+            likes: [], // Empty likes array for the retweet
+            retweetCount: 0, // Reset retweet count for the retweet
+            comments: originalPost.comments, // Set comments of the retweet to match the original post's comments
+            hashtags: originalPost.hashtags, // Set hashtags of the retweet to match the original post's hashtags
+            isRetweet: true,
+            originalPost: postId // Reference to the original post
+        });
+
+        // Save the retweet
+        await retweet.save();
+
+        // Update the retweet count of the original post
+        originalPost.retweetCount += 1;
+        await originalPost.save();
+
+        res.status(201).json({ data: retweet, message: 'Retweet created successfully' });
+    } catch (error) {
+        console.error('Retweet error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.post('/posts/:postId/comments', async (req, res) => {
+    try {
+        const { userId, text } = req.body;
+        const { postId } = req.params;
+
+        // Create a new comment
+        const comment = new Comment({
+            text,
+            author: userId
+        });
+        await comment.save();
+
+        // Find the post by postId
+        const post = await Post.findById(postId);
+
+        // Check if the post exists
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        // Add the comment to the post
+        post.comments.push(comment);
+        await post.save();
+
+        res.status(201).json({ data: comment, message: 'Comment added successfully' });
+    } catch (error) {
+        console.error('Add Comment error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// app.put('/updatePostLike', async (req, res) => {
+//     try {
+//         const { userId, postId } = req.body;
+
+//         // Update post like
+//         const post = await Post.findOne({ postId });
+//         const newPost = Post({ });
+//         await newPost.save();
+
+//         res.status(201).json({ data: newPost, message: 'Post created successfully' });
+//     } catch (error) {
+//         console.error('New Post error:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
 // Logout endpoint
 app.get('/logout', (req, res) => {
     res.clearCookie('token').send('Logged out successfully');

@@ -10,7 +10,7 @@ import axios from "axios";
 const Sidebar = () => {
     const user = useSelector((store) => store.user);
 
-    console.log(user)
+    // console.log(user)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
