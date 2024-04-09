@@ -202,7 +202,7 @@ const fileSchema = new mongoose.Schema({
 
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/');
+      cb(null, './uploads/');
     },
     filename: function (req, file, cb) {
       cb(null, Date.now() + '-' + file.originalname);
@@ -220,10 +220,10 @@ const postSchema = new mongoose.Schema({
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     hashtags: [{ type: String }],
     mediaAttachments: [{ type: String }], // Store file paths or URLs
-    // isRetweet: { type: Boolean, default: false },
-    // originalPost: { type: mongoose.Schema.Types.ObjectId},
-    // visibility: { type: String, default: 'public' }, // Could be 'public', 'private', etc.
-    // location: { type: String },
+    isRetweet: { type: Boolean, default: false },
+    originalPost: { type: mongoose.Schema.Types.ObjectId, default:null},
+    visibility: { type: String, default: 'public' }, // Could be 'public', 'private', etc.
+    location: { type: Object },
     // clickThroughRate: { type: Number, default: 0 }, // Additional field for recommendation algorithm
     // qualityScore: { type: Number }, // Additional field for content quality
     // tags: [{ type: String }], // Additional structured topic tags
@@ -237,10 +237,10 @@ const Post = mongoose.model('Post', postSchema);
 app.post('/createPost', upload.array('mediaAttachments'), async (req, res) => {
     try {
       const { content, author, hashtags, mediaAttachments } = req.body;
-      const filepaths = mediaAttachments.map(file => file.path); // Store file paths
+      const filepaths =  mediaAttachments.map((file) => file.path); // Store file paths
   
       // Create new post
-      const newPost = new Post({ content, author, hashtags, mediaAttachments });
+      const newPost = new Post({ content, author, hashtags, mediaAttachments: filepaths });
 
       console.log("newPost",newPost);
       await newPost.save();
