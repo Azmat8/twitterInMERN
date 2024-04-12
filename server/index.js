@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
@@ -239,11 +237,11 @@ const Post = mongoose.model('Post', postSchema);
 
 app.post('/createPost', uploadd.array('mediaAttachments'), async (req, res) => {
     try {
-      const { content, author, hashtags, mediaAttachments } = req.body;
-      console.log("mediaAttachments", mediaAttachments) // Store file paths
-    //   const filepaths =  mediaAttachments.map((file) => file.path); 
+        const { content, author, hashtags, mediaAttachments } = req.body;
+        console.log('requested>>>>>>>>>>>>>>>>>>>>>___________');
+  
       // Create new post
-      const newPost = new Post({ content, author, hashtags, mediaAttachments: mediaAttachments });
+      const newPost = new Post({ content, author, hashtags, mediaAttachments });
 
       await newPost.save();
   

@@ -37,68 +37,116 @@ const Home = () => {
 
   const user = useSelector((store) => store.user);
 
-  user.id;
+  user.id
+
+  // const handleCreatePost = async (e) => {
+  //   e.preventDefault();
+
+  //   const hashtagRegex = /#[a-zA-Z0-9_]+/g;
+
+  //   // Extract hashtags from the text using the regular expression
+  //   const hashtagsArray = post?.content?.match(hashtagRegex);
+  //   console.log(selectedFiles);
+  //   const payload = {
+  //     content: post?.content,
+  //     author: user?.id,
+  //     hashtags: hashtagsArray,
+  //     mediaAttachments: selectedFiles
+  //   }
+
+  //   console.log("payload.mediaAttachments", payload.mediaAttachments);
+  //   try {
+  //     const response = await axios.post("http://localhost:8080/createPost", JSON.stringify(payload), {
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       }
+  //     });
+
+  //     // console.log(response);
+
+  //   // try {
+  //   //   const response = await axios.post("http://localhost:8080/createPost", payload);
+  //   //   console.log("response", response);
+
+  //     dispatch(createPost(response.data.data));
+
+  //     setPost({
+  //       content: ""
+  //     })
+
+  //     setSelectedFiles([])
+
+  //     alert("Post created Successfully");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
-
+  
     const hashtagRegex = /#[a-zA-Z0-9_]+/g;
-
+  
     // Extract hashtags from the text using the regular expression
     const hashtagsArray = post?.content?.match(hashtagRegex);
-    console.log("selected Files",selectedFiles);
-    const mediaAttachmentNames = selectedFiles.map((file) => file.name);
-    console.log(mediaAttachmentNames);
-    const payload = {
-      content: post?.content,
-      author: user?.id,
-      hashtags: hashtagsArray,
-      mediaAttachments: mediaAttachmentNames,
-    };
-
-    console.log("payload.mediaAttachments", payload.mediaAttachments);
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/createPost",
-        JSON.stringify(payload),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-     
-
-      // console.log(response);
-
-      // try {
-      //   const response = await axios.post("http://localhost:8080/createPost", payload);
-      //   console.log("response", response);
-
-      dispatch(createPost(response.data.data));
-
-      setPost({
-        content: "",
+  
+    // Create a FormData object to append files
+    const formData = new FormData();
+  console.log( post.content, 'check post content ');
+  console.log(user.id, 'check post id ');
+    // Append content and author to the formData
+    formData.append("content", post.content);
+    formData.append("author", user.id);
+  
+    // Append hashtags to the formData if available
+    if (hashtagsArray) {
+      hashtagsArray.forEach((hashtag) => {
+        formData.append("hashtags[]", hashtag);
       });
-
+    }
+  
+    // Append each selected file to the formData
+    selectedFiles.forEach((file) => {
+      formData.append("mediaAttachments", file);
+    });
+  
+    try {
+      // Send the formData to the backend to create the post
+      const response = await axios.post("http://localhost:8080/createPost", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(response);
+  
+      // Dispatch an action to update the state with the newly created post
+      dispatch(createPost(response.data.data));
+  
+      // Clear the post content and selected files
+      setPost({
+        content: ""
+      });
       setSelectedFiles([]);
-
+  
       alert("Post created Successfully");
     } catch (error) {
       console.log(error);
     }
   };
+  
 
+  
   const handleContentChange = (e) => {
     setPost({ ...post, content: e.target.value });
   };
 
   const handleFileChange = (event) => {
+
     const files = event.target.files;
-    console.log(files)
-    const fileURLs = Array.from(files).map((file) => URL.createObjectURL(file));
-    setSelectedFiles([...selectedFiles, ...fileURLs]);
+    
+  const fileURLs = Array.from(files).map((file) => URL.createObjectURL(file));
+  setSelectedFiles([...selectedFiles, ...fileURLs]);
+    console.log(selectedFiles);
   };
 
   useEffect(() => {
@@ -186,7 +234,7 @@ const Home = () => {
                         className="cursor-pointer"
                         name="uploadedImage"
                       />
-                      {selectedFiles.length > 0 && (
+                      {/* {selectedFiles.length > 0 && (
                         <div>
                           <ul>
                             {selectedFiles.map((file, index) => (
@@ -201,7 +249,7 @@ const Home = () => {
                             ))}
                           </ul>
                         </div>
-                      )}
+                      )} */}
                     </div>
                     <div className="flex justify-between gap-x-20 mb-2 mr-3">
                       <div className="flex justify-center items-center gap-x-5">
@@ -368,118 +416,3 @@ const TweetCard = ({ post }) => {
     </div>
   );
 };
-
-// const TweetCard = ({ post }) => {
-//   // Destructure for easier access to nested properties
-//   const { user, created_at, text, entities } = post;
-//   const imageUrl = entities.media && entities.media.length > 0 ? entities.media[0].media_url_https : '';
-//   const formattedDate = moment(created_at).format('MMM D'); // 'Apr 3' for example
-
-//   return (
-//     <div className="border-b">
-//       <div className="flex p-3 mr-2">
-//         <div className="w-14">
-//           <img className="rounded-full" src={user.profile_image_url_https} alt="" />
-//         </div>
-//         <div className="ml-2">
-//           <div className="flex justify-between">
-//             <div className="flex gap-2 items-center">
-//               <span className="font-semibold">{user.name}</span>
-//               <span className="text-blue-500"><CheckCircleOutlined /></span>
-//               <span className="text-gray-500 text-sm">@{user.screen_name}</span>
-//               <span className="text-gray-500 text-sm">&middot;</span>
-//               <span className="text-gray-500 text-sm">{formattedDate}</span>
-//             </div>
-//             <div>
-//               <span><EllipsisOutlined /> </span>
-//             </div>
-//           </div>
-//           <div className="text-gray-700 mb-3">
-//             <p>{text}</p>
-//           </div>
-//           {imageUrl && (
-//             <div>
-//               <img className="rounded-2xl" src={imageUrl} alt="" />
-//             </div>
-//           )}
-//           <div className="flex justify-between items-center mt-3">
-//             <div className="flex gap-14 ml-2 ">
-//               <div className="flex justify-center items-center gap-1 text-gray-700"><WechatWorkOutlined />
-//                 <span className="text-xs">50</span>
-//               </div>
-//               <div className="flex justify-center items-center gap-1 text-gray-700"><RetweetOutlined />
-//                 <span className="text-xs">2.9K</span>
-//               </div>
-//               <div className="flex justify-center items-center gap-1 text-gray-700"><HeartOutlined />
-//                 <span className="text-xs">475</span>
-//               </div>
-//               <div className="flex justify-center items-center gap-1 text-gray-700"><BarChartOutlined />
-//                 <span className="text-xs">151K</span>
-//               </div>
-//             </div>
-//             <div className="flex gap-4">
-//               <div className="text-gray-700"><BookOutlined /></div>
-//               <div className="text-gray-700"><UploadOutlined /></div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// const TweetCard = (post) => {
-
-//   console.log("data", post.user.name );
-//   return (
-//     <div className="bg-gray-50">
-//       <div className="flex p-3 mr-2">
-//         <div className="w-14">
-//           <img className="rounded-full" src="https://pbs.twimg.com/profile_images/914888589670043654/KVvwjcWA_400x400.jpg" alt="" />
-//         </div>
-//         <div className="ml-2">
-//           <div className="flex justify-between" >
-//             <div className="flex gap-2 items-center">
-//               <span className="font-semibold">{user.name}</span>
-//               <span className="text-blue-500"><CheckCircleOutlined /></span>
-//               <span className="text-gray-500 text-sm">{user.screen_name}</span>
-//               <span className="text-gray-500 text-sm">&middot;</span>
-//               <span className="text-gray-500 text-sm ">{created_at}</span>
-//             </div>
-//             <div>
-//               <span><EllipsisOutlined /> </span>
-//             </div>
-//           </div>
-//           <div className="text-sm">
-//             <p>How refraction can paint a 30-meter loblolly pine forest in a drop of water.</p>
-//             <p className="pt-4 pb-2">[📸 Fallout99]</p>
-//           </div>
-//           <div>
-//             <img className="rounded-2xl" src="https://pbs.twimg.com/media/GKF15vqWYAARfEm?format=jpg&name=small" alt="asdas" />
-//           </div>
-//           <div className="flex justify-between items-center mt-3">
-//             <div className="flex gap-14 ml-2 ">
-
-//               <div className="flex justify-center items-center gap-1 text-gray-700"><WechatWorkOutlined />
-//                 <span className="text-xs">50</span>
-//               </div>
-//               <div className="flex justify-center items-center gap-1 text-gray-700"><HeartOutlined />
-//                 <span className="text-xs">475</span>
-//               </div>
-//               <div className="flex justify-center items-center gap-1 text-gray-700"><RetweetOutlined />
-//                 <span className="text-xs">2.9K</span>
-//               </div>
-//               <div className="flex justify-center items-center gap-1 text-gray-700"><BarChartOutlined />
-//                 <span className="text-xs">151K</span>
-//               </div>
-//             </div>
-//             <div className="flex gap-4">
-//               <div className="text-gray-700"><BookOutlined /></div>
-//               <div className="text-gray-700"><UploadOutlined /></div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
