@@ -21,6 +21,8 @@ app.use(cors(corsOpts));
 
 const PORT = process.env.PORT || 8080;
 
+const upload = multer({dest: "upload/"});
+
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://root:root@cluster0.9uojead.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
@@ -48,6 +50,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 const User2 = mongoose.model('users2', userSchema);
 app.use(express.json());
+app.use(express.urlencoded({extended: false}))
 
 // Signup endpoint
 app.post('/signup', async (req, res) => {
@@ -209,7 +212,7 @@ const fileSchema = new mongoose.Schema({
     }
   });
   
-  const upload = multer({ storage: storage });
+  const uploadd = multer({ storage: storage });
 
 
 const postSchema = new mongoose.Schema({
@@ -234,15 +237,14 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model('Post', postSchema);
 
-app.post('/createPost', upload.array('mediaAttachments'), async (req, res) => {
+app.post('/createPost', uploadd.array('mediaAttachments'), async (req, res) => {
     try {
       const { content, author, hashtags, mediaAttachments } = req.body;
-      const filepaths =  mediaAttachments.map((file) => file.path); // Store file paths
-  
+      console.log("mediaAttachments", mediaAttachments) // Store file paths
+    //   const filepaths =  mediaAttachments.map((file) => file.path); 
       // Create new post
-      const newPost = new Post({ content, author, hashtags, mediaAttachments: filepaths });
+      const newPost = new Post({ content, author, hashtags, mediaAttachments: mediaAttachments });
 
-      console.log("newPost",newPost);
       await newPost.save();
   
       res.status(201).json({ data: newPost, message: 'Post created successfully' });
@@ -402,6 +404,20 @@ app.get('/logout', (req, res) => {
 });
 
 
+app.get('/newposts', async (req, res) => {
+    try {
+        const authorId = req.query.authorId; 
+        if (!mongoose.Types.ObjectId.isValid(authorId)) {
+            return res.status(400).json({ error: 'Invalid author ID' });
+        }
+        const posts = await Post.find({ author: authorId }); 
+        res.status(200).json(posts);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 
 // Middleware to verify JWT token
 function verifyToken(req, res, next) {
@@ -418,6 +434,13 @@ function verifyToken(req, res, next) {
         next();
     });
 }
+
+
+
+app.post("/upload",upload.single('uploadedImage'), (req, res)=>{
+    console.log("req.body::::",req.body);
+    console.log("req.file:::::",req.file)
+})
 
 
 app.listen(PORT, () => {

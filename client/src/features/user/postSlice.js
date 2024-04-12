@@ -26,7 +26,7 @@ const postSlice = createSlice({
         isRetweet,
         originalPost,
         visibility,
-        location
+        location,
       } = action.payload;
       
       state.content = content;

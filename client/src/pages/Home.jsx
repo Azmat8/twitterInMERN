@@ -3,24 +3,41 @@ import Sidebar from "../components/Sidebar";
 import Sidebar2 from "../components/Sidebar2";
 import { useSelector, useDispatch } from "react-redux";
 import posts from "../posts.json";
-import { BarChartOutlined, BookOutlined, CameraOutlined, CheckCircleFilled, EllipsisOutlined, EnvironmentOutlined, FileImageOutlined, GifOutlined, HeartOutlined, RetweetOutlined, SettingOutlined, SmileOutlined, UploadOutlined, WechatWorkOutlined } from '@ant-design/icons'
+import {
+  BarChartOutlined,
+  BookOutlined,
+  CameraOutlined,
+  CheckCircleFilled,
+  EllipsisOutlined,
+  EnvironmentOutlined,
+  FileImageOutlined,
+  GifOutlined,
+  HeartOutlined,
+  RetweetOutlined,
+  SettingOutlined,
+  SmileOutlined,
+  UploadOutlined,
+  WechatWorkOutlined,
+} from "@ant-design/icons";
 import moment from "moment";
-import axios from 'axios';
+import axios from "axios";
 import { createPost } from "../features/user/postSlice";
+import NewPostCard from "./newPostCard";
 
 const Home = () => {
-
   const dispatch = useDispatch();
 
   const [post, setPost] = useState({
     content: "",
   });
 
+  const [newPost, setNewPost] = useState([]);
+
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const user = useSelector((store) => store.user);
 
-  user.id
+  user.id;
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
@@ -29,53 +46,78 @@ const Home = () => {
 
     // Extract hashtags from the text using the regular expression
     const hashtagsArray = post?.content?.match(hashtagRegex);
-console.log(selectedFiles);
+    console.log("selected Files",selectedFiles);
+    const mediaAttachmentNames = selectedFiles.map((file) => file.name);
+    console.log(mediaAttachmentNames);
     const payload = {
       content: post?.content,
       author: user?.id,
       hashtags: hashtagsArray,
-      mediaAttachments: selectedFiles
-    }
+      mediaAttachments: mediaAttachmentNames,
+    };
 
     console.log("payload.mediaAttachments", payload.mediaAttachments);
     try {
-      const response = await axios.post("http://localhost:8080/createPost", JSON.stringify(payload), {
-        headers: {
-          'Content-Type': 'application/json'
+      const response = await axios.post(
+        "http://localhost:8080/createPost",
+        JSON.stringify(payload),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
+
+     
 
       // console.log(response);
 
-    // try {
-    //   const response = await axios.post("http://localhost:8080/createPost", payload);
-    //   console.log("response", response);
+      // try {
+      //   const response = await axios.post("http://localhost:8080/createPost", payload);
+      //   console.log("response", response);
 
       dispatch(createPost(response.data.data));
 
       setPost({
-        content: ""
-      })
+        content: "",
+      });
 
-      setSelectedFiles([])
+      setSelectedFiles([]);
 
       alert("Post created Successfully");
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleContentChange = (e) => {
     setPost({ ...post, content: e.target.value });
   };
 
-
   const handleFileChange = (event) => {
     const files = event.target.files;
-    setSelectedFiles([...selectedFiles, ...files]);
+    console.log(files)
+    const fileURLs = Array.from(files).map((file) => URL.createObjectURL(file));
+    setSelectedFiles([...selectedFiles, ...fileURLs]);
   };
 
   useEffect(() => {
+    try {
+      const authorId = user.id;
+      const response = axios
+        .get(`http://localhost:8080/newposts?authorId=${authorId}`)
+        .then((response) => {
+          // Handle the response data
+          console.log("newPost response", response.data);
+          setNewPost(response.data);
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error("Error:", error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
     // console.log("selectedFiles", selectedFiles);
   }, [selectedFiles]);
 
@@ -88,7 +130,6 @@ console.log(selectedFiles);
           </div>
           <div className="w-[600px] border-r border-l ">
             <div className="flex justify-between items-center">
-
               <nav className="flex gap-6 m-3 font-semibold text-gray-500">
                 <div>For You</div>
                 <div>Following</div>
@@ -96,11 +137,13 @@ console.log(selectedFiles);
                 <div>Podcasters of India</div>
                 <div>Animals</div>
               </nav>
-              <div className="pr-4"><SettingOutlined /></div>
+              <div className="pr-4">
+                <SettingOutlined />
+              </div>
             </div>
 
             <div className="border-y">
-              <div className="flex" >
+              <div className="flex">
                 <div className="w-10 my-4 ml-4">
                   <img
                     className="w-10 h-10 rounded-full border-y border-gray-200"
@@ -108,7 +151,13 @@ console.log(selectedFiles);
                     alt="Profile"
                   />
                 </div>
-                <form onSubmit={handleCreatePost} className="w-full mr-4">
+                <form
+                  onSubmit={handleCreatePost}
+                  action="/upload"
+                  method="POST"
+                  encType="multipart/form-data"
+                  className="w-full mr-4"
+                >
                   <div className="">
                     <div className="">
                       <textarea
@@ -122,7 +171,10 @@ console.log(selectedFiles);
                     </div>
 
                     <div>
-                      <label htmlFor="mediaFiles" className="text-blue-500 text-lg cursor-pointer">
+                      <label
+                        htmlFor="mediaFiles"
+                        className="text-blue-500 text-lg cursor-pointer"
+                      >
                         <CameraOutlined />
                       </label>
                       <input
@@ -130,8 +182,9 @@ console.log(selectedFiles);
                         id="mediaFiles"
                         onChange={handleFileChange}
                         multiple
-                        style={{ display: 'none' }}
+                        style={{ display: "none" }}
                         className="cursor-pointer"
+                        name="uploadedImage"
                       />
                       {selectedFiles.length > 0 && (
                         <div>
@@ -141,7 +194,7 @@ console.log(selectedFiles);
                                 <img
                                   src={URL.createObjectURL(file)}
                                   alt={file.name}
-                                  style={{ maxWidth: '300px' }}
+                                  style={{ maxWidth: "300px" }}
                                   className="m-4 rounded-2xl shadow hover:opacity-90"
                                 />
                               </li>
@@ -152,8 +205,6 @@ console.log(selectedFiles);
                     </div>
                     <div className="flex justify-between gap-x-20 mb-2 mr-3">
                       <div className="flex justify-center items-center gap-x-5">
-
-
                         {/* <div>
                         <label htmlFor="mediaFiles" className="text-blue-500 text-lg cursor-pointer">
                           <CameraOutlined />
@@ -168,14 +219,23 @@ console.log(selectedFiles);
                         />
                       </div> */}
 
-                        <div className="text-blue-500 text-xl"><GifOutlined /></div>
-                        <div className="text-blue-500"><SmileOutlined /></div>
-                        <div className="text-blue-500"><EnvironmentOutlined /></div>
+                        <div className="text-blue-500 text-xl">
+                          <GifOutlined />
+                        </div>
+                        <div className="text-blue-500">
+                          <SmileOutlined />
+                        </div>
+                        <div className="text-blue-500">
+                          <EnvironmentOutlined />
+                        </div>
                       </div>
                       <div className="gap-x-2 ">
                         <button
                           type="submit"
-                          className="text-white  font-bold px-4 py-1 bg-sky-500 rounded-full">Post</button>
+                          className="text-white  font-bold px-4 py-1 bg-sky-500 rounded-full"
+                        >
+                          Post
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -184,13 +244,21 @@ console.log(selectedFiles);
             </div>
 
             <div className="recommendation">
-              {
-                posts.map((post) => (
-                  <TweetCard key={post.id} post={post} />
-                ))
-              }
-            </div>
+              {newPost
+                .slice()
+                .reverse()
+                .map((post) => (
+                  <NewPostCard
+                    key={post._id}
+                    post={post}
+                    authorName={user.username}
+                  />
+                ))}
 
+              {posts.map((post) => (
+                <TweetCard key={post.id} post={post} />
+              ))}
+            </div>
           </div>
           <div className="ml-5">
             <Sidebar2 />
@@ -198,24 +266,36 @@ console.log(selectedFiles);
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 const TweetCard = ({ post }) => {
   const { user, created_at, text, entities } = post;
-  const formattedDate = moment(created_at).format('MMM D');
+  const formattedDate = moment(created_at).format("MMM D");
 
   const renderMedia = (media) => {
     return media.map((item, index) => {
       switch (item.type) {
-        case 'photo':
-          return <img key={index} className="rounded-2xl mt-2 w-[98%]" src={item.media_url_https} alt="" />;
-        case 'video':
+        case "photo":
+          return (
+            <img
+              key={index}
+              className="rounded-2xl mt-2 w-[98%]"
+              src={item.media_url_https}
+              alt=""
+            />
+          );
+        case "video":
           return (
             <div key={index} className="w-[30rem]  mt-2">
-              <video controls autoPlay loop className='w-full h-auto rounded-2xl'>
+              <video
+                controls
+                autoPlay
+                loop
+                className="w-full h-auto rounded-2xl"
+              >
                 <source src={item.media_url_https} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
@@ -231,19 +311,28 @@ const TweetCard = ({ post }) => {
     <div className="border-b hover:bg-gray-100 transition-all cursor-pointer">
       <div className="flex p-3 mr-2">
         <div className="w-20">
-          <img className="rounded-full" width={45} src={user.profile_image_url_https} alt={user.name} />
+          <img
+            className="rounded-full"
+            width={45}
+            src={user.profile_image_url_https}
+            alt={user.name}
+          />
         </div>
         <div className="ml-2">
           <div className="flex justify-between">
             <div className="flex gap-2 items-center">
               <span className="font-semibold">{user.name}</span>
-              <span className="text-blue-500"><CheckCircleFilled /></span>
+              <span className="text-blue-500">
+                <CheckCircleFilled />
+              </span>
               <span className="text-gray-500 text-sm">@{user.screen_name}</span>
               <span className="text-gray-500 text-sm">&middot;</span>
               <span className="text-gray-500 text-sm">{formattedDate}</span>
             </div>
             <div>
-              <span><EllipsisOutlined /></span>
+              <span>
+                <EllipsisOutlined />
+              </span>
             </div>
           </div>
           <div className="text-gray-700 mb-3">
