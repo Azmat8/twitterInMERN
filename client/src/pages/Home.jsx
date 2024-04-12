@@ -201,9 +201,6 @@ const Home = () => {
                 </div>
                 <form
                   onSubmit={handleCreatePost}
-                  action="/upload"
-                  method="POST"
-                  encType="multipart/form-data"
                   className="w-full mr-4"
                 >
                   <div className="">
@@ -232,7 +229,6 @@ const Home = () => {
                         multiple
                         style={{ display: "none" }}
                         className="cursor-pointer"
-                        name="uploadedImage"
                       />
                       {/* {selectedFiles.length > 0 && (
                         <div>

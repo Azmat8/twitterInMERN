@@ -34,7 +34,7 @@ const NewPostCard = ({ post, authorName }) => {
   } = post;
   const formattedDate = moment(createdAt).format("MMM D");
 
-  // console.log(mediaAttachments)
+  console.log(mediaAttachments);
 
   const renderMedia = (media) => {
     return media.map((item, index) => {
@@ -46,8 +46,8 @@ const NewPostCard = ({ post, authorName }) => {
               <img
                 key={index}
                 className="rounded-2xl mt-2 w-[98%]"
-                src={mediaAttachments}
-                alt=""
+                src={url}
+                alt={`Image ${index + 1}`}
               />
             );
           case "video":
@@ -113,7 +113,15 @@ const NewPostCard = ({ post, authorName }) => {
           <div className="text-gray-700 mb-3">
             <p>{content}</p>
           </div>
-          {mediaAttachments && renderMedia(mediaAttachments)}
+          {mediaAttachments &&
+            mediaAttachments.map((blobUrl, index) => (
+              <img
+                key={index}
+                className="rounded-2xl mt-2 w-[98%]"
+                src={blobUrl}
+                alt={`Image ${index + 1}`}
+              />
+            ))}
           <div className="flex justify-between items-center mt-3">
             <div className="flex gap-16">
               <div className="flex items-center gap-1 text-gray-500">
