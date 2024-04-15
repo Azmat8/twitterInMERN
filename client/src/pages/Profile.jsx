@@ -1,8 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import { ArrowLeftOutlined, CalendarOutlined, EllipsisOutlined } from '@ant-design/icons'
+import axios from 'axios'
 
 const Profile = () => {
+  const [crUser, setCrUser] = useState()
+  const getAuthToken = () => {
+    // Get token from LocalStorage
+    const token = localStorage.getItem('token');
+    if (token) {
+      return token;
+    } else {
+
+      console.log('Token does not exist in LocalStorage');
+      return null;
+    }
+  }
+
+  const getCurrentUser = async () => {
+    try {
+      const authToken = getAuthToken(); // Get Authorization token
+      const config = {
+        headers: {
+          Authorization: authToken // Add Authorization header
+        }
+      };
+
+      const response = await axios.get("http://localhost:8080/getCurrentUser", config);
+      setCrUser(response.data.user, "getCurrentUsers");
+      console.log(response.data.user);
+    } catch (error) {
+      console.log(error);
+      console.log("Internal server error");
+    }
+  };
+
+
+  useEffect(() => {
+
+    getCurrentUser();
+
+  }, []);
+
+
+
   return (
     <div>
       <div className="flex justify-center gap-10">
@@ -29,14 +70,7 @@ const Profile = () => {
                   <div className='p-1 px-2 rounded-full border border-gray-300'>
                     <span className='cursor-pointer text-[15.5px] font-semibold'>Edit Profile</span>
                   </div>
-                  {/* // this will be used for peoples profile page
-                  <div className='p-1 px-2 text-2xl font-bold rounded-full border border-gray-300 transition-all'>
-                    <span className='cursor-pointer'><EllipsisOutlined /></span>
-                  </div>
-                  <div className='py-2 px-4 bg-black text-white font-semibold rounded-full'>
-                    <span>Follow</span>
-                  </div>
-                   */}
+
                 </div>
                 <div className="bg-white relative w-full h-8"></div>
                 <div className="absolute top-[70%] left-[14%] transform -translate-x-1/2 -translate-y-1/2">
@@ -50,17 +84,17 @@ const Profile = () => {
                 </div>
               </div>
               <div className='pl-4'>
-                <div className='text-xl font-bold '>Sachin Dhayatadak</div>
+                <div className='text-xl font-bold '>{crUser?.name}</div>
                 <div className='text-sm'>
-                  <div className='text-gray-500'>@SachinDhayatad1</div>
-                  <div className='text-gray-500 mt-3'><CalendarOutlined /> Joined June 2020</div>
+                  <div className='text-gray-500'>{crUser?.username}</div>
+                  <div className='text-gray-500 mt-3'><CalendarOutlined /> {crUser?.joined}</div>
                   <div className='flex mt-2 gap-4'>
                     <div>
-                      <span className='font-semibold'>21</span>
+                      <span className='font-semibold'>{crUser?.followingCount}</span>
                       <span className='text-gray-500 '> Following</span>
                     </div>
                     <div>
-                      <span className='font-semibold'>2</span>
+                      <span className='font-semibold'>{crUser?.followersCount}</span>
                       <span className='text-gray-500 '> Followers</span>
                     </div>
                   </div>

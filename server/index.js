@@ -1,9 +1,11 @@
+
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const cors = require('cors')
-const axios = require('axios');
+const cors = require('cors');
+;
 const multer = require('multer');
 
 const app = express();
@@ -19,7 +21,7 @@ app.use(cors(corsOpts));
 
 const PORT = process.env.PORT || 8080;
 
-const upload = multer({dest: "upload/"});
+const upload = multer({ dest: "upload/" });
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://root:root@cluster0.9uojead.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
@@ -42,18 +44,56 @@ const userSchema = new mongoose.Schema({
     },
     selectedLanguages: [],
     selectedInterests: [],
+    profilePicture: [],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    follows: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    followers: {
+        type: [String],
+        default: [],
+    },
+    following: {
+        type: [String],
+        default: [],
+    },
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+    shares: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    privacySettings: Object,
+    blockedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    notifications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Notification' }],
+    followersCount: { type: Number, default: 0 },
+    followingCount: { type: Number, default: 0 },
+    tweetsCount: { type: Number, default: 0 },
+    verified: { type: Boolean, default: false },
 
 
-});
+},
+    {
+        timestamps: true
+    });
 const User = mongoose.model('User', userSchema);
-const User2 = mongoose.model('users2', userSchema);
-app.use(express.json());
-app.use(express.urlencoded({extended: false}))
 
+app.use(express.json());
+
+
+const secretKey = 'asdajdhjsawefhuiwefhwbdhsbfshfbsahfdvbsywyew8y73rehdshf3'; // Use a strong, fixed secret key
+
+function verifyToken(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(403).send({ error: 'A token is required for authentication' });
+
+    try {
+        const decoded = jwt.verify(token.split(' ')[1], secretKey); // Extract token from header and verify
+        req.decoded = decoded;
+        next();
+    } catch (err) {
+        return res.status(401).send({ error: 'Invalid Token' });
+    }
+}
 // Signup endpoint
 app.post('/signup', async (req, res) => {
     try {
-        const { name, email, password, birthdate, username, selectedLanguages, selectedInterests } = req.body;
+        const { name, email, password, birthdate, username, selectedLanguages, selectedInterests, following, followers } = req.body;
 
         // Check if user already exists
         const existingUser = await User.findOne({ email });
@@ -66,7 +106,7 @@ app.post('/signup', async (req, res) => {
 
 
         // Create new user
-        const newUser = new User({ name, email, password: hashedPassword, birthdate, username, selectedLanguages, selectedInterests });
+        const newUser = new User({ name, email, password: hashedPassword, birthdate, username, selectedLanguages, selectedInterests, following, followers });
         await newUser.save();
 
         res.status(201).json({ data: newUser, message: 'User created successfully' });
@@ -91,10 +131,6 @@ app.post('/checkemail', async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // const existingUsername = await User.findOne({ username });
-        // if (existingUsername) {
-        //     return res.status(400).json({ error: 'Username already exists' });
-        // }
 
         // Create new user
         const newUser = new User({ name, email, password: hashedPassword, });
@@ -149,7 +185,7 @@ app.post('/login', async (req, res) => {
         }
 
         // Generate JWT token
-        const token = jwt.sign({ userId: user._id }, 'secret_key', { expiresIn: '9h' });
+        const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '9h' });
 
         res.json({ data: user, token });
     } catch (error) {
@@ -157,6 +193,23 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+
+
+// function verifyToken(req, res, next) {
+//     const token = req.headers['authorization'];
+//     if (!token) return res.status(403).send({ error: 'A token is required for authentication' });
+
+//     try {
+//         const decoded = jwt.verify(token, secretKey);
+//         req.decoded = decoded;
+//     } catch (err) {
+//         return res.status(401).send({ error: 'Invalid Token' });
+//     }
+//     next();
+// }
+
+
 
 // Get user information
 app.get('/user', verifyToken, async (req, res) => {
@@ -167,21 +220,23 @@ app.get('/user', verifyToken, async (req, res) => {
             username: user.name,
             userId: user._id
         });
-        // console.log(user._id)
+        console.log(user._id);
     } catch (error) {
         console.error('User info error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
+// get all users
+
 app.get('/getAllUsers', async (req, res) => {
     try {
         const user = await User.find();
-        // console.log(user);
+        console.log(user);
         res.json({
             data: user
         });
-        // console.log(user._id)
+        console.log(user._id);
     } catch (error) {
         console.error('User info error:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -196,21 +251,21 @@ const fileSchema = new mongoose.Schema({
     filename: String,
     path: String,
     size: Number
-  });
-  
-  const File = mongoose.model('File', fileSchema);
+});
+
+const File = mongoose.model('File', fileSchema);
 
 
-  const storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './uploads/');
+        cb(null, './uploads/');
     },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + '-' + file.originalname);
+        cb(null, Date.now() + '-' + file.originalname);
     }
-  });
-  
-  const uploadd = multer({ storage: storage });
+});
+
+const uploadd = multer({ storage: storage });
 
 
 const postSchema = new mongoose.Schema({
@@ -222,7 +277,7 @@ const postSchema = new mongoose.Schema({
     hashtags: [{ type: String }],
     mediaAttachments: [{ type: String }], // Store file paths or URLs
     isRetweet: { type: Boolean, default: false },
-    originalPost: { type: mongoose.Schema.Types.ObjectId, default:null},
+    originalPost: { type: mongoose.Schema.Types.ObjectId, default: null },
     visibility: { type: String, default: 'public' }, // Could be 'public', 'private', etc.
     location: { type: Object },
     // clickThroughRate: { type: Number, default: 0 }, // Additional field for recommendation algorithm
@@ -239,19 +294,19 @@ app.post('/createPost', uploadd.array('mediaAttachments'), async (req, res) => {
     try {
         const { content, author, hashtags, mediaAttachments } = req.body;
         console.log('requested>>>>>>>>>>>>>>>>>>>>>___________');
-  
-      // Create new post
-      const newPost = new Post({ content, author, hashtags, mediaAttachments });
 
-      await newPost.save();
-  
-      res.status(201).json({ data: newPost, message: 'Post created successfully' });
+        // Create new post
+        const newPost = new Post({ content, author, hashtags, mediaAttachments });
+
+        await newPost.save();
+
+        res.status(201).json({ data: newPost, message: 'Post created successfully' });
     } catch (error) {
-      console.error('New Post error:', error);
-      res.status(500).json({ error: 'Internal server error' });
+        console.error('New Post error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-  });
-  
+});
+
 
 // app.post('/createPost', async (req, res) => {
 //     try {
@@ -404,11 +459,11 @@ app.get('/logout', (req, res) => {
 
 app.get('/newposts', async (req, res) => {
     try {
-        const authorId = req.query.authorId; 
+        const authorId = req.query.authorId;
         if (!mongoose.Types.ObjectId.isValid(authorId)) {
             return res.status(400).json({ error: 'Invalid author ID' });
         }
-        const posts = await Post.find({ author: authorId }); 
+        const posts = await Post.find({ author: authorId });
         res.status(200).json(posts);
     } catch (error) {
         console.error(error);
@@ -432,13 +487,6 @@ function verifyToken(req, res, next) {
         next();
     });
 }
-
-
-
-app.post("/upload",upload.single('uploadedImage'), (req, res)=>{
-    console.log("req.body::::",req.body);
-    console.log("req.file:::::",req.file)
-})
 
 
 app.listen(PORT, () => {

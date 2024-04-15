@@ -1,23 +1,20 @@
 import { CheckCircleOutlined, EllipsisOutlined, CheckCircleFilled } from "@ant-design/icons";
-
+import axios from "axios"
 import SearchBar from "./Searchbar";
 import userSlice from "../features/user/userSlice";
-
-
-
 import { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from 'react-redux';
 import { followUnfollowUser, followUser, unfollowUser } from '../features/user/userSlice';
-import axios from "axios";
 
 
 const Sidebar2 = () => {
 
-    const [followers, setFollowers] = useState([]);
+    const [followers, setFollowers] = useState()
+
+
     const dispatch = useDispatch();
-    const following = useSelector(state => state.user.following);
-
-
+    const followerses = useSelector(state => state.user.following);
 
 
     // get all users
@@ -41,13 +38,13 @@ const Sidebar2 = () => {
 
 
 
-    const handleFollow = async (userId) => {
-        await dispatch(followUnfollowUser(userId));
+    const handleFollow = (userId) => {
+        dispatch(followUnfollowUser(userId));
         dispatch(followUser(userId));
     };
 
-    const handleUnfollow = async (userId) => {
-        await dispatch(followUnfollowUser(userId));
+    const handleUnfollow = (userId) => {
+        dispatch(followUnfollowUser(userId));
         dispatch(unfollowUser(userId));
     };
 
@@ -102,9 +99,10 @@ const Sidebar2 = () => {
             </div>
         </div>
         <div>
-            <WhoToFollowCard followers={followers} handleFollow={handleFollow} handleUnfollow=
-                {handleUnfollow} />
+            <WhoToFollowCard followers={followers} />
         </div>
+
+
 
     </div>
 }
@@ -113,9 +111,33 @@ export default Sidebar2
 
 
 
-const SuggestedProfile = ({ follow, handleFollow, handleUnfollow }) => {
+// const SuggestedProfile = ({ follow }) => {
 
-    console.log(follow._id, "OneMan")
+//     console.log(follow, "hellow mama")
+
+//     return <>
+
+
+
+//         <div className="flex items-center justify-between py-2 px-4">
+//             <div className="flex items-center">
+//                 <img className="w-10 h-10 rounded-full" src="azoo.jpg" alt={"azmat"} />
+//                 <div className="ml-3">
+//                     <p className="text-sm font-semibold text-gray-800">{follow.name}
+//                         <span> {follow.verified ? <span>bluetick</span> : ""}</span>
+//                     </p>
+//                     <p className="text-xs text-gray-600">{follow.username}</p>
+//                 </div>
+//             </div>
+//             <button className="bg-black hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full text-sm">
+//                 Follow
+//             </button>
+//         </div>
+//     </>
+// };
+
+// chat gpt
+const SuggestedProfile = ({ follow }) => {
     return (
         <div className="flex items-center justify-between py-2 px-4">
             <div className="flex items-center">
@@ -127,16 +149,49 @@ const SuggestedProfile = ({ follow, handleFollow, handleUnfollow }) => {
                     <p className="text-xs text-gray-600">{follow.username}</p>
                 </div>
             </div>
-            <button onClick={() => handleFollow(follow._id)}>Follow</button>
-            <button onClick={() => handleUnfollow(follow._id)}>Unfollow</button>
+            {isFollowing ? (
+                <button className="bg-black hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full text-sm" onClick={() => handleUnfollow(follow._id)}>
+                    Unfollow
+                </button>
+            ) : (
+                <button className="bg-black hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full text-sm" onClick={() => handleFollow(follow._id)}>
+                    Follow
+                </button>
+            )}
         </div>
     );
 };
 
 
+// const WhoToFollowCard = ({ followers }) => {
+
+//     console.log(followers)
+
+//     return (
+//         <>
+//             <div className="bg-[#f7f9f9] mb-4 p-3 rounded-2xl">
+//                 <div className="">
+//                     <div className="font-bold text-xl mb-2">Who to follow</div>
+//                     {followers && followers.map((follow) => (
+//                         <SuggestedProfile key={Math.random()} follow={follow} />
+//                     ))}
+//                     <button className="text-blue-500 hover:text-blue-600 text-sm font-semibold py-2">
+//                         Show more
+//                     </button>
+//                     {/* {follow?.isFollowing ? (
+//                         <button onClick={() => handleUnfollow(follow.id)}>Unfollow</button>
+//                     ) : (
+//                         <button onClick={() => handleFollow(follow.id)}>Follow</button>
+//                     )} */}
+//                 </div>
+//             </div>
+//         </>
+//     );
+// };
+s
 
 
-const WhoToFollowCard = ({ followers, handleUnfollow, handleFollow }) => {
+const WhoToFollowCard = ({ followers }) => {
     return (
         <div className="bg-[#f7f9f9] mb-4 p-3 rounded-2xl">
             <div className="">
@@ -145,15 +200,20 @@ const WhoToFollowCard = ({ followers, handleUnfollow, handleFollow }) => {
                     <SuggestedProfile
                         key={follow._id}
                         follow={follow}
-                        handleUnfollow={handleUnfollow}
-                        handleFollow={handleFollow}
-
                     />
                 ))}
                 <button className="text-blue-500 hover:text-blue-600 text-sm font-semibold py-2">
                     Show more
                 </button>
             </div>
+
+            {followers?.map((follow) => (
+                <div key={follow._id}>
+                    {follow.name}
+                    <button onClick={() => handleFollow(follow._id)}>Follow</button>
+                    <button onClick={() => handleUnfollow(follow._id)}>Unfollow</button>
+                </div>
+            ))}
         </div>
     );
 };

@@ -37,7 +37,7 @@ const Home = () => {
 
   const user = useSelector((store) => store.user);
 
-  user.id
+  user.id;
 
   // const handleCreatePost = async (e) => {
   //   e.preventDefault();
@@ -84,32 +84,32 @@ const Home = () => {
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
-  
+
     const hashtagRegex = /#[a-zA-Z0-9_]+/g;
-  
+
     // Extract hashtags from the text using the regular expression
     const hashtagsArray = post?.content?.match(hashtagRegex);
-  
+
     // Create a FormData object to append files
     const formData = new FormData();
-  console.log( post.content, 'check post content ');
-  console.log(user.id, 'check post id ');
+    console.log(post.content, 'check post content ');
+    console.log(user.id, 'check post id ');
     // Append content and author to the formData
     formData.append("content", post.content);
     formData.append("author", user.id);
-  
+
     // Append hashtags to the formData if available
     if (hashtagsArray) {
       hashtagsArray.forEach((hashtag) => {
         formData.append("hashtags[]", hashtag);
       });
     }
-  
+
     // Append each selected file to the formData
     selectedFiles.forEach((file) => {
       formData.append("mediaAttachments", file);
     });
-  
+
     try {
       // Send the formData to the backend to create the post
       const response = await axios.post("http://localhost:8080/createPost", formData, {
@@ -118,24 +118,24 @@ const Home = () => {
         }
       });
       console.log(response);
-  
+
       // Dispatch an action to update the state with the newly created post
       dispatch(createPost(response.data.data));
-  
+
       // Clear the post content and selected files
       setPost({
         content: ""
       });
       setSelectedFiles([]);
-  
+
       alert("Post created Successfully");
     } catch (error) {
       console.log(error);
     }
   };
-  
 
-  
+
+
   const handleContentChange = (e) => {
     setPost({ ...post, content: e.target.value });
   };
@@ -143,9 +143,9 @@ const Home = () => {
   const handleFileChange = (event) => {
 
     const files = event.target.files;
-    
-  const fileURLs = Array.from(files).map((file) => URL.createObjectURL(file));
-  setSelectedFiles([...selectedFiles, ...fileURLs]);
+
+    const fileURLs = Array.from(files).map((file) => URL.createObjectURL(file));
+    setSelectedFiles([...selectedFiles, ...fileURLs]);
     console.log(selectedFiles);
   };
 
@@ -334,12 +334,7 @@ const TweetCard = ({ post }) => {
         case "video":
           return (
             <div key={index} className="w-[30rem]  mt-2">
-              <video
-                controls
-                autoPlay
-                loop
-                className="w-full h-auto rounded-2xl"
-              >
+              <video controls autoPlay loop className='w-full h-auto rounded-2xl'>
                 <source src={item.media_url_https} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>

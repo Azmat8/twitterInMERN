@@ -1,12 +1,27 @@
 import { CheckCircleFilled, CheckCircleOutlined, XOutlined } from '@ant-design/icons'
-import React, { useState } from 'react'
+
 import axios from 'axios';
+import { useEffect, useState } from "react";
+
 
 import { useNavigate } from 'react-router-dom'
 
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { followUnfollowUser, followUser, unfollowUser } from '../../features/user/userSlice';
+
 const FollowPeople = ({ data, birthdate, username, selectedLanguages, selectedInterests }) => {
   const [error, setError] = useState(null)
+  const [allUser, setAllUser] = useState([])
+
+  const [following, setFollowing] = useState([])
+  const [followers, setFollowers] = useState([])
+
+  const dispatch = useDispatch();
   const navigate = useNavigate()
+
+
 
   console.log(username)
 
@@ -17,15 +32,10 @@ const FollowPeople = ({ data, birthdate, username, selectedLanguages, selectedIn
 
     console.log(data)
     try {
-      const response = await axios.post("http://localhost:8080/signup", { name, email, password, birthdate, username, selectedLanguages, selectedInterests });
+      const response = await axios.post("http://localhost:8080/signup", { name, email, password, birthdate, username, selectedLanguages, selectedInterests, following, followers });
       console.log(response, "response:all data of user")
 
-      // dispatch(createUser(response.data.data)); // Dispatch action correctly
-      // setData({
-      //   name: "",
-      //   email: "",
-      //   password: "",
-      // });
+
       navigate("/login");
       alert("Sign up successful. Please log in.");
 
@@ -37,6 +47,37 @@ const FollowPeople = ({ data, birthdate, username, selectedLanguages, selectedIn
         setError('Sign up failed. Please try again.');
       }
     }
+  };
+
+
+  const getAllUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/getAllUsers");
+      setAllUser(response.data?.user, "response: all data of user");
+      console.log(response)
+    } catch (error) {
+      console.log(error);
+      console.log("Internal server error");
+    }
+  };
+  console.log(allUser, "setters")
+
+  useEffect(() => {
+
+    getAllUsers();
+
+  }, []);
+
+
+
+  const handleFollow = (userId) => {
+    dispatch(followUnfollowUser(userId));
+    dispatch(followUser(userId));
+  };
+
+  const handleUnfollow = (userId) => {
+    dispatch(followUnfollowUser(userId));
+    dispatch(unfollowUser(userId));
   };
 
 
@@ -55,7 +96,7 @@ const FollowPeople = ({ data, birthdate, username, selectedLanguages, selectedIn
             When you follow someone, you'll see their posts in your Timeline. You'll also get more relevant recommendations.
           </div>
 
-          <WhoToFollowCard />
+          <WhoToFollowCard allUser={allUser} handleFollow={handleFollow} handleUnfollow={handleUnfollow} />
 
           <button onClick={redirectToLogin} className=' cursor-pointer mb-5 bg-black text-white rounded-full p-3 mt-20 text-center border border-gray-300' >
             <span className=' block font-bold  w-96'>Next</span>
@@ -71,67 +112,47 @@ const FollowPeople = ({ data, birthdate, username, selectedLanguages, selectedIn
 export default FollowPeople
 
 
-const SuggestedProfile = ({ profile }) => (
-  <div className="flex items-center justify-between py-2 px-4  hover:bg-gray-200 rounded transition-all" >
-    <div className="flex items-center">
-      <img className="w-10 h-10 rounded-full" src={profile.avatar} alt={profile.name} />
-      <div className="ml-3">
-        <p className="text-sm font-semibold text-gray-800">{profile.name}
-          <span> {profile.isverified}</span>
-        </p>
-        <p className="text-xs text-gray-600">@{profile.handle}</p>
-      </div>
-    </div>
-    <button className="bg-black hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full text-sm transition-all">
-      Follow
-    </button>
-  </div>
-);
+const SuggestedProfile = ({ follow, handleFollow, handleUnfollow }) => {
 
-const WhoToFollowCard = () => {
-
-  const profiles = [
-    {
-      name: 'Narendra Modi',
-      handle: 'narendramodi',
-      avatar: 'https://pbs.twimg.com/profile_images/1700051019525488640/VRqy0bTE_400x400.jpg',
-    },
-    {
-      name: 'Nature is Amazing',
-      handle: 'AMAZINGNATURE',
-      avatar: 'https://pbs.twimg.com/profile_images/1675131429003427841/dahpFfla_400x400.jpg',
-      isverified: (
-        <span className="text-blue-500"><CheckCircleFilled /></span>
-      )
-    },
-    {
-      name: 'Magic | マジック',
-      handle: 'MagicStaysGod',
-      avatar: 'https://pbs.twimg.com/profile_images/1627496447527768070/V-GicvkF_400x400.jpg',
-    },
-    {
-      name: 'PlayStation',
-      handle: 'PlayStation',
-      avatar: 'https://pbs.twimg.com/profile_images/1278183948279922690/ybnDHXn7_400x400.jpg',
-    },
-  ];
-
+  console.log(follow._id, "OneMan")
   return (
-    // <div className="max-w-sm rounded-2xl overflow-hidden shadow-lg ">
-    <div className=" mb-4 p-3 rounded">
-      <div className="">
-        <div className="font-bold text-lg mb-2">Follow 1 or more accounts</div>
-        {profiles.map((profile) => (
-          <SuggestedProfile key={profile.handle} profile={profile} />
-        ))}
-        {/* <button className="text-blue-500 hover:text-blue-600 text-sm font-semibold py-2">
-                    Show more
-                </button> */}
+    <div className="flex items-center justify-between py-2 px-4">
+      <div className="flex items-center">
+        <img className="w-10 h-10 rounded-full" src="azoo.jpg" alt={"azmat"} />
+        <div className="ml-3">
+          <p className="text-sm font-semibold text-gray-800">{follow.name}
+            {follow.verified && <span>bluetick</span>}
+          </p>
+          <p className="text-xs text-gray-600">{follow.username}</p>
+        </div>
       </div>
+      <button onClick={() => handleFollow(follow._id)}>Follow</button>
+      <button onClick={() => handleUnfollow(follow._id)}>Unfollow</button>
     </div>
   );
 };
 
+const WhoToFollowCard = ({ allUser, handleUnfollow, handleFollow }) => {
+  return (
+    <div className="bg-[#f7f9f9] mb-4 p-3 rounded-2xl">
+      <div className="">
+        <div className="font-bold text-xl mb-2">Who to follow</div>
+        {allUser && allUser.map(follow => (
+          <SuggestedProfile
+            key={follow._id}
+            follow={follow}
+            handleUnfollow={handleUnfollow}
+            handleFollow={handleFollow}
+
+          />
+        ))}
+        <button className="text-blue-500 hover:text-blue-600 text-sm font-semibold py-2">
+          Show more
+        </button>
+      </div>
+    </div>
+  );
+};
 
 
 
